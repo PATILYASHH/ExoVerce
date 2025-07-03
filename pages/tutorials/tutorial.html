@@ -1,402 +1,688 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Exotutor</title>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"/>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
-  <style>
-    :root {
-      --bg-dark: #0e0e0e;
-      --bg-secondary: #1c1c1c;
-      --accent-red: #ff3c3c;
-      --accent-blue: #3ea6ff;
-      --text-light: #f9f9f9;
-      --text-muted: #b3b3b3;
-    }
-    body {
-      background-color: var(--bg-dark);
-      color: var(--text-light);
-      font-family: 'Segoe UI', sans-serif;
-    }
-    .sidebar {
-      background-color: var(--bg-secondary);
-      height: 100vh;
-      position: fixed;
-      width: 200px;
-      padding-top: 1rem;
-      overflow-y: auto;
-      box-shadow: 2px 0 5px rgba(0, 0, 0, 0.5);
-    }
-    .sidebar a {
-      color: var(--text-muted);
-      padding: 0.75rem 1rem;
-      display: flex;
-      align-items: center;
-      text-decoration: none;
-      transition: 0.2s;
-      font-size: 0.9rem;
-    }
-    .sidebar a:hover {
-      background: var(--accent-red);
-      color: #fff;
-    }
-    .sidebar i {
-      margin-right: 10px;
-    }
-    .main {
-      margin-left: 220px;
-      padding: 2rem;
-    }
-    .topbar {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 2rem;
-    }
-    .topbar input {
-      background: #2a2a2a;
-      border: none;
-      color: #fff;
-      padding: 0.6rem 1rem;
-      width: 360px;
-      border-radius: 10px;
-      outline: none;
-    }
-    .video-card, .course-card {
-      background-color: var(--bg-secondary);
-      border-radius: 16px;
-      overflow: hidden;
-      transition: transform 0.3s, box-shadow 0.3s;
-      border: 1px solid #333;
-      height: 100%;
-    }
-    .video-card:hover, .course-card:hover {
-      transform: translateY(-8px);
-      box-shadow: 0 0 25px rgba(255, 0, 0, 0.3);
-    }
-    .course-card {
-      min-height: 400px;
-      height: 500px;
-      width: 90%;
-    }
-    .avatar {
-      width: 48px;
-      height: 48px;
-      border-radius: 50%;
-    }
-    .card-body h5 {
-      font-size: 1.1rem;
-      margin: 0.5rem 0;
-      color: var(--text-light);
-    }
-    .green {
-      color: #22c55e;
-    }
-    .rating {
-      background-color: var(--accent-red);
-      padding: 3px 8px;
-      border-radius: 5px;
-      font-size: 0.85rem;
-      color: #fff;
-      margin-right: 6px;
-    }
-    .topbar i {
-      color: var(--text-muted);
-      font-size: 1.2rem;
-      cursor: pointer;
-      margin-left: 15px;
-      transition: color 0.2s;
-    }
-    .topbar i:hover {
-      color: var(--accent-blue);
-    }
-    .text-muted {
-      color: white;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ExoVerce - ExoTutor</title>
+    <meta name="description" content="Learn electronics and programming with ExoTutor - courses and video tutorials">
+    
+    <!-- Preload critical resources -->
+    <link rel="preload" href="../../css/global.css" as="style">
+    <link rel="preload" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" as="style">
+    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" as="style">
+    
+    <!-- CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" rel="stylesheet">
+    <link href="../../css/global.css" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <div class="sidebar d-flex flex-column">
-    <h4 class="text-white text-center mb-4">Exotutor</h4>
-    <a href="#"><i class="fas fa-home"></i> Home</a>
-    <a href="#"><i class="fas fa-heart"></i> Followings</a>
-    <a href="#"><i class="fas fa-history"></i> History</a>
-    <a href="#"><i class="fas fa-list"></i> Playlist</a>
-    <a href="#"><i class="fas fa-thumbs-up"></i> Liked Videos</a>
-    <a href="#"><i class="fas fa-graduation-cap"></i> Course</a>
-    <a href="#"><i class="fas fa-book"></i> Library</a>
-    <a href="#"><i class="fas fa-wifi"></i> Live</a>
-    <a href="#"><i class="fas fa-user-cog"></i> Creator Area</a>
-    <a href="#"><i class="fas fa-video"></i> Create</a>
-    <a href="#"><i class="fas fa-upload"></i> Your Video</a>
-  </div>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg sticky-top">
+        <div class="container-fluid px-4">
+            <a class="navbar-brand d-flex align-items-center" href="../../home/home.html">
+                <i class="fa-solid fa-graduation-cap me-2"></i>ExoTutor
+            </a>
+            
+            <!-- Search Bar -->
+            <div class="navbar-search flex-grow-1 mx-4">
+                <div class="search-container">
+                    <input type="text" class="form-control search-input" placeholder="Search courses, tutorials, creators..." id="searchInput">
+                    <button class="btn search-btn" type="button">
+                        <i class="fa-solid fa-search"></i>
+                    </button>
+                </div>
+            </div>
 
-  <div class="main">
-    <div class="topbar">
-      <input type="text" placeholder="Search...">
-      <div>
-        <i class="fas fa-microphone"></i>
-        <i class="fas fa-bell"></i>
-        <i class="fas fa-user-circle"></i>
-      </div>
+            <div class="navbar-nav d-flex flex-row">
+                <a class="nav-link" href="../../home/home.html">
+                    <i class="fa-solid fa-home"></i>
+                </a>
+                <a class="nav-link" href="#" data-bs-toggle="modal" data-bs-target="#notificationsModal">
+                    <i class="fa-solid fa-bell"></i>
+                    <span class="notification-badge">3</span>
+                </a>
+                <a class="nav-link" href="../../profile/profile.html">
+                    <i class="fa-solid fa-user-circle"></i>
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="container-fluid">
+        <!-- Hero Section - Netflix Style -->
+        <div class="hero-section">
+            <div class="hero-backdrop">
+                <div class="hero-content">
+                    <div class="row align-items-center">
+                        <div class="col-lg-6">
+                            <div class="hero-info">
+                                <div class="hero-badges">
+                                    <span class="badge hero-badge featured">Featured Course</span>
+                                    <span class="badge hero-badge new">New</span>
+                                </div>
+                                <h1 class="hero-title">Complete Electronics Mastery</h1>
+                                <p class="hero-description">From basic circuits to advanced IoT projects. Master electronics design with hands-on projects and real-world applications.</p>
+                                
+                                <div class="hero-meta">
+                                    <div class="meta-item">
+                                        <i class="fa-solid fa-star"></i>
+                                        <span>4.9</span>
+                                    </div>
+                                    <div class="meta-item">
+                                        <i class="fa-solid fa-clock"></i>
+                                        <span>15h 30m</span>
+                                    </div>
+                                    <div class="meta-item">
+                                        <i class="fa-solid fa-users"></i>
+                                        <span>12.5K students</span>
+                                    </div>
+                                    <div class="meta-item">
+                                        <i class="fa-solid fa-dollar-sign"></i>
+                                        <span>$49.99</span>
+                                    </div>
+                                </div>
+
+                                <div class="hero-creator">
+                                    <img src="https://via.placeholder.com/40x40" alt="Creator" class="creator-avatar">
+                                    <span class="creator-name">Dr. Sarah Chen</span>
+                                    <span class="creator-title">Electronics Engineer</span>
+                                    <button class="contact-creator-btn hero-contact-btn" data-creator="Dr. Sarah Chen" title="Contact Dr. Sarah Chen">
+                                        <i class="fa-solid fa-message"></i>
+                                    </button>
+                                </div>
+
+                                <div class="hero-actions">
+                                    <button class="btn btn-hero-primary">
+                                        <i class="fa-solid fa-play me-2"></i>Start Course
+                                    </button>
+                                    <button class="btn btn-hero-secondary">
+                                        <i class="fa-solid fa-bookmark me-2"></i>Save
+                                    </button>
+                                    <button class="btn btn-hero-info">
+                                        <i class="fa-solid fa-info-circle me-2"></i>More Info
+                                    </button>
+                                    <button class="contact-creator-btn hero-contact-btn" data-creator="Dr. Sarah Chen" title="Contact Dr. Sarah Chen">
+                                        <i class="fa-solid fa-message"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="hero-video">
+                                <div class="video-preview">
+                                    <i class="fa-solid fa-play"></i>
+                                    <div class="video-overlay">Preview</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Categories Slider -->
+        <div class="categories-section">
+            <div class="container">
+                <div class="categories-slider">
+                    <button class="category-btn active" data-category="all">All</button>
+                    <button class="category-btn" data-category="free">Free Videos</button>
+                    <button class="category-btn" data-category="courses">Paid Courses</button>
+                    <button class="category-btn" data-category="electronics">Electronics</button>
+                    <button class="category-btn" data-category="programming">Programming</button>
+                    <button class="category-btn" data-category="ai">AI & ML</button>
+                    <button class="category-btn" data-category="robotics">Robotics</button>
+                    <button class="category-btn" data-category="iot">IoT</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Content Sections -->
+        <div class="container">
+            <!-- Featured Courses Section (Netflix Style) -->
+            <section class="content-section">
+                <div class="section-header">
+                    <h2 class="section-title">
+                        <i class="fa-solid fa-crown me-2"></i>Premium Courses
+                    </h2>
+                    <a href="#" class="see-all-link">See All <i class="fa-solid fa-arrow-right ms-1"></i></a>
+                </div>
+                
+                <div class="netflix-slider">
+                    <div class="netflix-cards-container">
+                        <!-- Course Card 1 -->
+                        <div class="netflix-card">
+                            <div class="netflix-card-image">
+                                <img src="https://via.placeholder.com/300x450" alt="Course Thumbnail">
+                                <div class="card-overlay">
+                                    <button class="play-btn">
+                                        <i class="fa-solid fa-play"></i>
+                                    </button>
+                                </div>
+                                <div class="course-price">$39.99</div>
+                            </div>
+                            <div class="netflix-card-info">
+                                <h4 class="course-title">Advanced Arduino Programming</h4>
+                                <div class="course-meta-netflix">
+                                    <div class="rating">
+                                        <i class="fa-solid fa-star"></i>
+                                        <span>4.8</span>
+                                    </div>
+                                    <span class="duration">8h 45m</span>
+                                    <span class="students">3.2K students</span>
+                                </div>
+                                <p class="course-description">Master advanced Arduino concepts with real-world projects and professional techniques.</p>
+                                <div class="course-creator">
+                                    <img src="https://via.placeholder.com/24x24" alt="Creator">
+                                    <span>John Smith</span>
+                                    <button class="contact-creator-btn" data-creator="John Smith" title="Contact Instructor">
+                                        <i class="fa-solid fa-message"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Course Card 2 -->
+                        <div class="netflix-card">
+                            <div class="netflix-card-image">
+                                <img src="https://via.placeholder.com/300x450" alt="Course Thumbnail">
+                                <div class="card-overlay">
+                                    <button class="play-btn">
+                                        <i class="fa-solid fa-play"></i>
+                                    </button>
+                                </div>
+                                <div class="course-price">$59.99</div>
+                            </div>
+                            <div class="netflix-card-info">
+                                <h4 class="course-title">IoT Development Bootcamp</h4>
+                                <div class="course-meta-netflix">
+                                    <div class="rating">
+                                        <i class="fa-solid fa-star"></i>
+                                        <span>4.9</span>
+                                    </div>
+                                    <span class="duration">12h 20m</span>
+                                    <span class="students">5.8K students</span>
+                                </div>
+                                <p class="course-description">Build complete IoT solutions from sensors to cloud deployment.</p>
+                                <div class="course-creator">
+                                    <img src="https://via.placeholder.com/24x24" alt="Creator">
+                                    <span>Maria Garcia</span>
+                                    <button class="contact-creator-btn" data-creator="Maria Garcia" title="Contact Instructor">
+                                        <i class="fa-solid fa-message"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Course Card 3 -->
+                        <div class="netflix-card">
+                            <div class="netflix-card-image">
+                                <img src="https://via.placeholder.com/300x450" alt="Course Thumbnail">
+                                <div class="card-overlay">
+                                    <button class="play-btn">
+                                        <i class="fa-solid fa-play"></i>
+                                    </button>
+                                </div>
+                                <div class="course-price">Free</div>
+                            </div>
+                            <div class="netflix-card-info">
+                                <h4 class="course-title">Python for Electronics</h4>
+                                <div class="course-meta-netflix">
+                                    <div class="rating">
+                                        <i class="fa-solid fa-star"></i>
+                                        <span>4.7</span>
+                                    </div>
+                                    <span class="duration">6h 15m</span>
+                                    <span class="students">8.9K students</span>
+                                </div>
+                                <p class="course-description">Learn Python programming specifically for electronics and automation.</p>
+                                <div class="course-creator">
+                                    <img src="https://via.placeholder.com/24x24" alt="Creator">
+                                    <span>Alex Johnson</span>
+                                    <button class="contact-creator-btn" data-creator="Alex Johnson" title="Contact Instructor">
+                                        <i class="fa-solid fa-message"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Free Videos Section (YouTube Style) -->
+            <section class="content-section">
+                <div class="section-header">
+                    <h2 class="section-title">
+                        <i class="fa-solid fa-play me-2"></i>Free Video Tutorials
+                    </h2>
+                    <a href="#" class="see-all-link">See All <i class="fa-solid fa-arrow-right ms-1"></i></a>
+                </div>
+                
+                <div class="youtube-grid">
+                    <!-- Video Card 1 -->
+                    <div class="youtube-card">
+                        <div class="youtube-thumbnail">
+                            <img src="https://via.placeholder.com/320x180" alt="Video Thumbnail">
+                            <div class="video-duration">15:30</div>
+                            <div class="video-overlay">
+                                <button class="play-button">
+                                    <i class="fa-solid fa-play"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="youtube-info">
+                            <div class="video-details">
+                                <h4 class="video-title">Getting Started with Arduino - Complete Beginner's Guide</h4>
+                                <div class="video-meta">
+                                    <div class="channel-info">
+                                        <span class="channel-name">ElectroLearn</span>
+                                        <button class="contact-creator-btn" data-creator="ElectroLearn" title="Contact Creator">
+                                            <i class="fa-solid fa-message"></i>
+                                        </button>
+                                    </div>
+                                    <span class="video-stats">125K views • 2 days ago</span>
+                                </div>
+                                <div class="video-description">
+                                    Learn the basics of Arduino programming and build your first LED circuit...
+                                </div>
+                            </div>
+                            <div class="channel-avatar">
+                                <img src="https://via.placeholder.com/36x36" alt="Channel">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Video Card 2 -->
+                    <div class="youtube-card">
+                        <div class="youtube-thumbnail">
+                            <img src="https://via.placeholder.com/320x180" alt="Video Thumbnail">
+                            <div class="video-duration">22:45</div>
+                            <div class="video-overlay">
+                                <button class="play-button">
+                                    <i class="fa-solid fa-play"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="youtube-info">
+                            <div class="video-details">
+                                <h4 class="video-title">Building a Smart Home System with Raspberry Pi</h4>
+                                <div class="video-meta">
+                                    <div class="channel-info">
+                                        <span class="channel-name">TechMakers</span>
+                                        <button class="contact-creator-btn" data-creator="TechMakers" title="Contact Creator">
+                                            <i class="fa-solid fa-message"></i>
+                                        </button>
+                                    </div>
+                                    <span class="video-stats">89K views • 1 week ago</span>
+                                </div>
+                                <div class="video-description">
+                                    Create an automated home system using Raspberry Pi and various sensors...
+                                </div>
+                            </div>
+                            <div class="channel-avatar">
+                                <img src="https://via.placeholder.com/36x36" alt="Channel">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Video Card 3 -->
+                    <div class="youtube-card">
+                        <div class="youtube-thumbnail">
+                            <img src="https://via.placeholder.com/320x180" alt="Video Thumbnail">
+                            <div class="video-duration">18:20</div>
+                            <div class="video-overlay">
+                                <button class="play-button">
+                                    <i class="fa-solid fa-play"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="youtube-info">
+                            <div class="video-details">
+                                <h4 class="video-title">PCB Design Tutorial for Beginners</h4>
+                                <div class="video-meta">
+                                    <div class="channel-info">
+                                        <span class="channel-name">CircuitPro</span>
+                                        <button class="contact-creator-btn" data-creator="CircuitPro" title="Contact Creator">
+                                            <i class="fa-solid fa-message"></i>
+                                        </button>
+                                    </div>
+                                    <span class="video-stats">67K views • 3 days ago</span>
+                                </div>
+                                <div class="video-description">
+                                    Learn how to design professional PCBs using KiCad and industry best practices...
+                                </div>
+                            </div>
+                            <div class="channel-avatar">
+                                <img src="https://via.placeholder.com/36x36" alt="Channel">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Video Card 4 -->
+                    <div class="youtube-card">
+                        <div class="youtube-thumbnail">
+                            <img src="https://via.placeholder.com/320x180" alt="Video Thumbnail">
+                            <div class="video-duration">25:10</div>
+                            <div class="video-overlay">
+                                <button class="play-button">
+                                    <i class="fa-solid fa-play"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="youtube-info">
+                            <div class="video-details">
+                                <h4 class="video-title">Machine Learning with TensorFlow for IoT Devices</h4>
+                                <div class="video-meta">
+                                    <div class="channel-info">
+                                        <span class="channel-name">AI Electronics</span>
+                                        <button class="contact-creator-btn" data-creator="AI Electronics" title="Contact Creator">
+                                            <i class="fa-solid fa-message"></i>
+                                        </button>
+                                    </div>
+                                    <span class="video-stats">156K views • 5 days ago</span>
+                                </div>
+                                <div class="video-description">
+                                    Deploy machine learning models on microcontrollers and edge devices...
+                                </div>
+                            </div>
+                            <div class="channel-avatar">
+                                <img src="https://via.placeholder.com/36x36" alt="Channel">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Trending Section -->
+            <section class="content-section">
+                <div class="section-header">
+                    <h2 class="section-title">
+                        <i class="fa-solid fa-fire me-2"></i>Trending Now
+                    </h2>
+                </div>
+                
+                <div class="trending-grid">
+                    <!-- Mix of Netflix and YouTube style cards -->
+                    <div class="row g-4">
+                        <div class="col-lg-8">
+                            <!-- Large trending video (YouTube style) -->
+                            <div class="trending-featured">
+                                <div class="trending-thumbnail">
+                                    <img src="https://via.placeholder.com/800x450" alt="Trending Video">
+                                    <div class="trending-overlay">
+                                        <button class="trending-play-btn">
+                                            <i class="fa-solid fa-play"></i>
+                                        </button>
+                                        <div class="trending-badge">Trending #1</div>
+                                    </div>
+                                    <div class="trending-duration">45:30</div>
+                                </div>
+                                <div class="trending-info">
+                                    <h3 class="trending-title">Building a Robot from Scratch - Complete Tutorial Series</h3>
+                                    <div class="trending-meta">
+                                        <div class="channel-info">
+                                            <img src="https://via.placeholder.com/40x40" alt="Channel">
+                                            <div>
+                                                <div class="channel-name">RoboMaker Pro</div>
+                                                <div class="video-stats">1.2M views • 2 hours ago</div>
+                                            </div>
+                                        </div>
+                                        <div class="trending-actions">
+                                            <button class="action-btn">
+                                                <i class="fa-solid fa-thumbs-up"></i>
+                                                <span>15K</span>
+                                            </button>
+                                            <button class="action-btn">
+                                                <i class="fa-solid fa-bookmark"></i>
+                                            </button>
+                                            <button class="action-btn">
+                                                <i class="fa-solid fa-share"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-4">
+                            <!-- Trending courses list -->
+                            <div class="trending-sidebar">
+                                <h4 class="sidebar-title">Popular Courses</h4>
+                                <div class="trending-course-list">
+                                    <div class="trending-course-item">
+                                        <img src="https://via.placeholder.com/80x80" alt="Course">
+                                        <div class="course-info">
+                                            <h5>ESP32 Masterclass</h5>
+                                            <div class="course-stats">
+                                                <span class="rating"><i class="fa-solid fa-star"></i> 4.9</span>
+                                                <span class="price">$29.99</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="trending-course-item">
+                                        <img src="https://via.placeholder.com/80x80" alt="Course">
+                                        <div class="course-info">
+                                            <h5>3D Printing Electronics</h5>
+                                            <div class="course-stats">
+                                                <span class="rating"><i class="fa-solid fa-star"></i> 4.8</span>
+                                                <span class="price">$45.00</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="trending-course-item">
+                                        <img src="https://via.placeholder.com/80x80" alt="Course">
+                                        <div class="course-info">
+                                            <h5>FPGA Programming</h5>
+                                            <div class="course-stats">
+                                                <span class="rating"><i class="fa-solid fa-star"></i> 4.7</span>
+                                                <span class="price">$79.99</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
     </div>
 
-    <h4 class="mb-3">Videos</h4>
-    <div class="row row-cols-1 row-cols-md-3 g-4 mb-5">
-      <div class="col">
-        <div class="video-card card">
-          <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRN8Kj9aB48I78B1EqdTA3c_XHSfQnC3rDpXA&s" class="card-img-top" alt="video">
-          <div class="card-body d-flex">
-            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRN8Kj9aB48I78B1EqdTA3c_XHSfQnC3rDpXA&s" class="avatar me-2">
-            <div>
-              <h5>Title of the video in this line</h5>
-              <small class="text-muted">Channel Name • 100K views</small>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="col">
-        <div class="video-card card">
-          <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRN8Kj9aB48I78B1EqdTA3c_XHSfQnC3rDpXA&s" class="card-img-top" alt="video">
-          <div class="card-body d-flex">
-            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRN8Kj9aB48I78B1EqdTA3c_XHSfQnC3rDpXA&s" class="avatar me-2">
-            <div>
-              <h5>Title of the video in this line</h5>
-              <small class="text-muted">Channel Name • 75K views</small>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="col">
-        <div class="video-card card">
-          <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRN8Kj9aB48I78B1EqdTA3c_XHSfQnC3rDpXA&s" class="card-img-top" alt="video">
-          <div class="card-body d-flex">
-            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRN8Kj9aB48I78B1EqdTA3c_XHSfQnC3rDpXA&s" class="avatar me-2">
-            <div>
-              <h5>Title of the video in this line</h5>
-              <small class="text-muted">Channel Name • 75K views</small>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="col">
-        <div class="video-card card">
-          <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRN8Kj9aB48I78B1EqdTA3c_XHSfQnC3rDpXA&s" class="card-img-top" alt="video">
-          <div class="card-body d-flex">
-            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRN8Kj9aB48I78B1EqdTA3c_XHSfQnC3rDpXA&s" class="avatar me-2">
-            <div>
-              <h5>Title of the video in this line</h5>
-              <small class="text-muted">Channel Name • 75K views</small>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="col">
-        <div class="video-card card">
-          <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRN8Kj9aB48I78B1EqdTA3c_XHSfQnC3rDpXA&s" class="card-img-top" alt="video">
-          <div class="card-body d-flex">
-            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRN8Kj9aB48I78B1EqdTA3c_XHSfQnC3rDpXA&s" class="avatar me-2">
-            <div>
-              <h5>Title of the video in this line</h5>
-              <small class="text-muted">Channel Name • 75K views</small>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="col">
-        <div class="video-card card">
-          <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRN8Kj9aB48I78B1EqdTA3c_XHSfQnC3rDpXA&s" class="card-img-top" alt="video">
-          <div class="card-body d-flex">
-            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRN8Kj9aB48I78B1EqdTA3c_XHSfQnC3rDpXA&s" class="avatar me-2">
-            <div>
-              <h5>Title of the video in this line</h5>
-              <small class="text-muted">Channel Name • 75K views</small>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="col">
-        <div class="video-card card">
-          <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRN8Kj9aB48I78B1EqdTA3c_XHSfQnC3rDpXA&s" class="card-img-top" alt="video">
-          <div class="card-body d-flex">
-            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRN8Kj9aB48I78B1EqdTA3c_XHSfQnC3rDpXA&s" class="avatar me-2">
-            <div>
-              <h5>Title of the video in this line</h5>
-              <small class="text-muted">Channel Name • 75K views</small>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="col">
-        <div class="video-card card">
-          <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRN8Kj9aB48I78B1EqdTA3c_XHSfQnC3rDpXA&s" class="card-img-top" alt="video">
-          <div class="card-body d-flex">
-            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRN8Kj9aB48I78B1EqdTA3c_XHSfQnC3rDpXA&s" class="avatar me-2">
-            <div>
-              <h5>Title of the video in this line</h5>
-              <small class="text-muted">Channel Name • 75K views</small>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="col">
-        <div class="video-card card">
-          <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRN8Kj9aB48I78B1EqdTA3c_XHSfQnC3rDpXA&s" class="card-img-top" alt="video">
-          <div class="card-body d-flex">
-            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRN8Kj9aB48I78B1EqdTA3c_XHSfQnC3rDpXA&s" class="avatar me-2">
-            <div>
-              <h5>Title of the video in this line</h5>
-              <small class="text-muted">Channel Name • 75K views</small>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="col">
-        <div class="video-card card">
-          <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRN8Kj9aB48I78B1EqdTA3c_XHSfQnC3rDpXA&s" class="card-img-top" alt="video">
-          <div class="card-body d-flex">
-            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRN8Kj9aB48I78B1EqdTA3c_XHSfQnC3rDpXA&s" class="avatar me-2">
-            <div>
-              <h5>Title of the video in this line</h5>
-              <small class="text-muted">Channel Name • 75K views</small>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="col">
-        <div class="video-card card">
-          <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRN8Kj9aB48I78B1EqdTA3c_XHSfQnC3rDpXA&s" class="card-img-top" alt="video">
-          <div class="card-body d-flex">
-            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRN8Kj9aB48I78B1EqdTA3c_XHSfQnC3rDpXA&s" class="avatar me-2">
-            <div>
-              <h5>Title of the video in this line</h5>
-              <small class="text-muted">Channel Name • 75K views</small>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="col">
-        <div class="video-card card">
-          <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRN8Kj9aB48I78B1EqdTA3c_XHSfQnC3rDpXA&s" class="card-img-top" alt="video">
-          <div class="card-body d-flex">
-            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRN8Kj9aB48I78B1EqdTA3c_XHSfQnC3rDpXA&s" class="avatar me-2">
-            <div>
-              <h5>Title of the video in this line</h5>
-              <small class="text-muted">Channel Name • 75K views</small>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="script.js"></script>
 
-    <h4 class="mb-3">Courses</h4>
-    <div class="row row-cols-1 row-cols-md-3 g-4">
-      <div class="col">
-        <div class="course-card card">
-          <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRN8Kj9aB48I78B1EqdTA3c_XHSfQnC3rDpXA&s" class="card-img-top" alt="course">
-          <div class="card-body">
-            <div class="d-flex align-items-center mb-2">
-              <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRN8Kj9aB48I78B1EqdTA3c_XHSfQnC3rDpXA&s" class="avatar me-2">
-              <small class="text-muted">Channel Name</small>
+    <!-- Course Detail Modal -->
+    <div class="modal fade course-detail-modal" id="courseDetailModal" tabindex="-1">
+        <div class="modal-dialog modal-xl">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                
+                <div class="modal-body p-0">
+                    <div class="course-detail-hero">
+                        <div class="row g-0">
+                            <div class="col-lg-8">
+                                <div class="course-video-container">
+                                    <img id="courseDetailImage" src="" alt="Course" class="course-detail-image">
+                                    <div class="video-overlay">
+                                        <button class="btn-play-large">
+                                            <i class="fa-solid fa-play"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-4">
+                                <div class="course-detail-info">
+                                    <h2 id="courseDetailTitle" class="course-detail-title"></h2>
+                                    <p id="courseDetailDescription" class="course-detail-description"></p>
+                                    
+                                    <!-- Ratings Section -->
+                                    <div class="ratings-section">
+                                        <div class="rating-item">
+                                            <label>
+                                                EVTR (Exoverse Team Review):
+                                                <span class="rating-tooltip" title="Official rating by our expert review team">ⓘ</span>
+                                            </label>
+                                            <div class="rating-stars">
+                                                <div class="stars" id="companyRating">
+                                                    <i class="fa-regular fa-star"></i>
+                                                    <i class="fa-regular fa-star"></i>
+                                                    <i class="fa-regular fa-star"></i>
+                                                    <i class="fa-regular fa-star"></i>
+                                                    <i class="fa-regular fa-star"></i>
+                                                </div>
+                                                <span class="rating-value" id="companyRatingValue">0</span>
+                                            </div>
+                                        </div>
+                                        <div class="rating-item">
+                                            <label>User Rating:</label>
+                                            <div class="rating-stars">
+                                                <div class="stars" id="userRating">
+                                                    <i class="fa-regular fa-star"></i>
+                                                    <i class="fa-regular fa-star"></i>
+                                                    <i class="fa-regular fa-star"></i>
+                                                    <i class="fa-regular fa-star"></i>
+                                                    <i class="fa-regular fa-star"></i>
+                                                </div>
+                                                <span class="rating-value" id="userRatingValue">0</span>
+                                                <span class="text-muted">(<span id="userReviewCount">0</span> reviews)</span>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Course Stats -->
+                                    <div class="course-stats-grid">
+                                        <div class="stat-box">
+                                            <i class="fa-solid fa-clock"></i>
+                                            <div class="stat-info">
+                                                <div class="stat-value" id="courseDuration">0h 0m</div>
+                                                <div class="stat-label">Duration</div>
+                                            </div>
+                                        </div>
+                                        <div class="stat-box">
+                                            <i class="fa-solid fa-users"></i>
+                                            <div class="stat-info">
+                                                <div class="stat-value" id="courseStudents">0</div>
+                                                <div class="stat-label">Students</div>
+                                            </div>
+                                        </div>
+                                        <div class="stat-box">
+                                            <i class="fa-solid fa-hammer"></i>
+                                            <div class="stat-info">
+                                                <div class="stat-value" id="courseBuildNumbers">0</div>
+                                                <div class="stat-label">Build Numbers</div>
+                                            </div>
+                                        </div>
+                                        <div class="stat-box">
+                                            <i class="fa-solid fa-play-circle"></i>
+                                            <div class="stat-info">
+                                                <div class="stat-value" id="courseLessons">0</div>
+                                                <div class="stat-label">Lessons</div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Course Creator -->
+                                    <div class="course-creator-info">
+                                        <img id="courseCreatorAvatar" src="" alt="Creator" class="creator-avatar">
+                                        <div class="creator-details">
+                                            <div class="creator-name" id="courseCreatorName"></div>
+                                            <div class="creator-title" id="courseCreatorTitle"></div>
+                                            <div class="creator-stats">
+                                                <span><i class="fa-solid fa-book"></i> <span id="creatorCourses">0</span> courses</span>
+                                                <span><i class="fa-solid fa-users"></i> <span id="creatorStudents">0</span> students</span>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Action Buttons -->
+                                    <div class="course-action-buttons">
+                                        <button class="btn btn-enroll">
+                                            <span>
+                                                <i class="fa-solid fa-graduation-cap me-2"></i>
+                                                Enroll Now
+                                            </span>
+                                            <span class="btn-price" id="coursePrice">$0</span>
+                                        </button>
+                                        
+                                        <div class="secondary-actions">
+                                            <button class="btn" id="contactInstructorBtn" data-instructor="">
+                                                <i class="fa-solid fa-message me-2"></i>Contact Instructor
+                                            </button>
+                                            <button class="btn">
+                                                <i class="fa-solid fa-bookmark me-2"></i>Save
+                                            </button>
+                                            <button class="btn">
+                                                <i class="fa-solid fa-share me-2"></i>Share
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Course Content Tabs -->
+                    <div class="course-content-tabs">
+                        <ul class="nav nav-tabs" role="tablist">
+                            <li class="nav-item">
+                                <a class="nav-link active" data-bs-toggle="tab" href="#lessons-tab">
+                                    <i class="fa-solid fa-play-circle me-2"></i>Lessons
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" data-bs-toggle="tab" href="#series-tab">
+                                    <i class="fa-solid fa-list me-2"></i>Series
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" data-bs-toggle="tab" href="#reviews-tab">
+                                    <i class="fa-solid fa-star me-2"></i>Reviews
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" data-bs-toggle="tab" href="#projects-tab">
+                                    <i class="fa-solid fa-project-diagram me-2"></i>Projects
+                                </a>
+                            </li>
+                        </ul>
+                        
+                        <div class="tab-content p-4">
+                            <!-- Lessons Tab -->
+                            <div class="tab-pane fade show active" id="lessons-tab">
+                                <div class="lessons-list" id="lessonsList">
+                                    <!-- Lessons will be populated here -->
+                                </div>
+                            </div>
+                            
+                            <!-- Series Tab -->
+                            <div class="tab-pane fade" id="series-tab">
+                                <div class="series-grid" id="seriesGrid">
+                                    <!-- Series will be populated here -->
+                                </div>
+                            </div>
+                            
+                            <!-- Reviews Tab -->
+                            <div class="tab-pane fade" id="reviews-tab">
+                                <div class="reviews-container" id="reviewsContainer">
+                                    <!-- Reviews will be populated here -->
+                                </div>
+                            </div>
+                            
+                            <!-- Projects Tab -->
+                            <div class="tab-pane fade" id="projects-tab">
+                                <div class="projects-gallery" id="projectsGallery">
+                                    <!-- Projects will be populated here -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <h5>Title of the Course</h5>
-            <div class="d-flex justify-content-between align-items-center mt-2">
-              <span class="rating"><i class="fas fa-star"></i> 4.5</span>
-              <span class="green">5000 Rs</span>
-              <small class="text-muted">3214 enrolled</small>
-            </div>
-          </div>
         </div>
-      </div>
-      <div class="col">
-        <div class="course-card card">
-          <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRN8Kj9aB48I78B1EqdTA3c_XHSfQnC3rDpXA&s" class="card-img-top" alt="course">
-          <div class="card-body">
-            <div class="d-flex align-items-center mb-2">
-              <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRN8Kj9aB48I78B1EqdTA3c_XHSfQnC3rDpXA&s" class="avatar me-2">
-              <small class="text-muted">Channel Name</small>
-            </div>
-            <h5>Another Course Title</h5>
-            <div class="d-flex justify-content-between align-items-center mt-2">
-              <span class="rating"><i class="fas fa-star"></i> 4.8</span>
-              <span class="green">7000 Rs</span>
-              <small class="text-muted">2500 enrolled</small>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="col">
-        <div class="course-card card">
-          <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRN8Kj9aB48I78B1EqdTA3c_XHSfQnC3rDpXA&s" class="card-img-top" alt="course">
-          <div class="card-body">
-            <div class="d-flex align-items-center mb-2">
-              <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRN8Kj9aB48I78B1EqdTA3c_XHSfQnC3rDpXA&s" class="avatar me-2">
-              <small class="text-muted">Channel Name</small>
-            </div>
-            <h5>Another Course Title</h5>
-            <div class="d-flex justify-content-between align-items-center mt-2">
-              <span class="rating"><i class="fas fa-star"></i> 4.8</span>
-              <span class="green">7000 Rs</span>
-              <small class="text-muted">2500 enrolled</small>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="col">
-        <div class="course-card card">
-          <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRN8Kj9aB48I78B1EqdTA3c_XHSfQnC3rDpXA&s" class="card-img-top" alt="course">
-          <div class="card-body">
-            <div class="d-flex align-items-center mb-2">
-              <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRN8Kj9aB48I78B1EqdTA3c_XHSfQnC3rDpXA&s" class="avatar me-2">
-              <small class="text-muted">Channel Name</small>
-            </div>
-            <h5>Another Course Title</h5>
-            <div class="d-flex justify-content-between align-items-center mt-2">
-              <span class="rating"><i class="fas fa-star"></i> 4.8</span>
-              <span class="green">7000 Rs</span>
-              <small class="text-muted">2500 enrolled</small>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="col">
-        <div class="course-card card">
-          <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRN8Kj9aB48I78B1EqdTA3c_XHSfQnC3rDpXA&s" class="card-img-top" alt="course">
-          <div class="card-body">
-            <div class="d-flex align-items-center mb-2">
-              <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRN8Kj9aB48I78B1EqdTA3c_XHSfQnC3rDpXA&s" class="avatar me-2">
-              <small class="text-muted">Channel Name</small>
-            </div>
-            <h5>Another Course Title</h5>
-            <div class="d-flex justify-content-between align-items-center mt-2">
-              <span class="rating"><i class="fas fa-star"></i> 4.8</span>
-              <span class="green">7000 Rs</span>
-              <small class="text-muted">2500 enrolled</small>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="col">
-        <div class="course-card card">
-          <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRN8Kj9aB48I78B1EqdTA3c_XHSfQnC3rDpXA&s" class="card-img-top" alt="course">
-          <div class="card-body">
-            <div class="d-flex align-items-center mb-2">
-              <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRN8Kj9aB48I78B1EqdTA3c_XHSfQnC3rDpXA&s" class="avatar me-2">
-              <small class="text-muted">Channel Name</small>
-            </div>
-            <h5>Another Course Title</h5>
-            <div class="d-flex justify-content-between align-items-center mt-2">
-              <span class="rating"><i class="fas fa-star"></i> 4.8</span>
-              <span class="green">7000 Rs</span>
-              <small class="text-muted">2500 enrolled</small>
-            </div>
-          </div>
-        </div>
-      </div>
     </div>
-  </div>
 </body>
 </html>

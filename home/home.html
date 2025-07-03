@@ -4,48 +4,56 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>ExoVerce -> Home</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <meta name="description" content="ExoVerce - Collaborative electronics design platform with project workspaces">
+    
+    <!-- Preload critical resources -->
+    <link rel="preload" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" as="style">
+    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" as="style">
+    <link rel="preload" href="../css/global.css" as="style">
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <link rel="stylesheet" href="../css/global.css">
     <link rel="stylesheet" href="home.css">
-
-<style>
-    #cardcolor 
-    {
-        background-color: blanchedalmond;
-    }
-</style>
 </head>
 <body>
 
     <!-- Navbar -->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark p-3">
-        <div class="container-fluid">
-            <span class="navbar-brand">
-                <i class="fa-solid fa-lightbulb"></i> Exosynk*
-            </span>
+    <nav class="navbar navbar-expand-lg sticky-top">
+        <div class="container-fluid px-4">
+            <a class="navbar-brand d-flex align-items-center" href="../index.html">
+                <i class="fa-solid fa-lightbulb me-2"></i>ExoVerce
+            </a>
 
             <div class="ms-auto d-flex align-items-center text-white">
-                <span class="me-3"><i class="fa-solid fa-database"></i> Storage: <strong>60%</strong></span>
-                <span class="me-3"><i class="fa-solid fa-clock"></i> Work Hr: <strong>80%</strong></span>
+                <div class="status-indicators d-none d-lg-flex">
+                    <div class="status-indicator">
+                        <i class="fa-solid fa-database"></i> Storage: <span class="stat-value">60%</span>
+                    </div>
+                    <div class="status-indicator">
+                        <i class="fa-solid fa-clock"></i> Work Hr: <span class="stat-value">80%</span>
+                    </div>
+                </div>
                 
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <button class="navbar-toggler ms-3" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                     <span class="navbar-toggler-icon"></span>
                 </button>
             </div>
 
-            <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+            <div class="collapse navbar-collapse justify-content-end" id="navbarNav"> 
                 <ul class="navbar-nav">
                     <li class="nav-item">
-                        <a href="../repository/#" class="nav-link"><i class="fa-solid fa-vial-virus"></i> Repositories</a>
+                        <a href="../repository/repository.html" class="nav-link"><i class="fa-solid fa-vial-virus"></i> Repositories</a>
                     </li>
                     <li class="nav-item">
-                        <a href="../achivements/#" class="nav-link"><i class="fa-solid fa-trophy"></i> Achivements</a>
+                        <a href="../achivements/achievements.html" class="nav-link"><i class="fa-solid fa-trophy"></i> Achievements</a>
                     </li>
                     <li class="nav-item">
-                        <a href="../pages/updates/update.html" class="nav-link"><i class="fa-regular fa-newspaper"></i> Exsocial</a>
+                        <a href="../pages/updates/update.html" class="nav-link"><i class="fa-regular fa-newspaper"></i> ExoSocial</a>
                     </li>
                     <li class="nav-item">
-                        <a href="../pages/tutorials/tutorial.html" class="nav-link"><i class="fa-solid fa-film"></i> Exotutor</a>
+                        <a href="../pages/tutorials/tutorial.html" class="nav-link"><i class="fa-solid fa-film"></i> ExoTutor</a>
                     </li>
                     <li class="nav-item">
                         <a href="../pages/store/store.html" class="nav-link"><i class="fa-solid fa-bag-shopping"></i> Store</a>
@@ -61,108 +69,395 @@
         </div>
     </nav>
 
-    <div class="container mt-3">
-        <form class="d-flex" id="searchForm">
-            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" id="searchInput">
-            <button class="btn btn-outline-success" type="submit">Search</button>
+    <!-- Page Header -->
+    <div class="container">
+        <div class="page-header fade-in">
+            <h1 class="page-title">Welcome to ExoVerce</h1>
+            <p class="page-subtitle">Design, build, and share your electronics projects in collaborative workspaces</p>
+            
+            <!-- Workspace Stats -->
+            <div class="workspace-stats">
+                <div class="stat-card">
+                    <i class="fa-solid fa-folder"></i>
+                    <div class="stat-info">
+                        <span class="stat-number">5</span>
+                        <span class="stat-label">Active Workspaces</span>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <i class="fa-solid fa-users"></i>
+                    <div class="stat-info">
+                        <span class="stat-number">12</span>
+                        <span class="stat-label">Collaborators</span>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <i class="fa-solid fa-code-commit"></i>
+                    <div class="stat-info">
+                        <span class="stat-number">48</span>
+                        <span class="stat-label">Total Commits</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Search Section -->
+    <div class="container search-container">
+        <form class="search-form fade-in" id="searchForm">
+            <div class="d-flex gap-2">
+                <input class="form-control search-input flex-grow-1" type="search" placeholder="Search project workspaces by name or description..." aria-label="Search" id="searchInput">
+                <button class="btn search-btn" type="submit">
+                    <i class="fa-solid fa-search"></i> Search
+                </button>
+            </div>
         </form>
     </div>
 
-    <div class="container mt-3">
-    <div class="row row-cols-1 row-cols-md-3 g-4" id="cardContainer">
-        
-        <div class="col">
-            <div class="card animate__animated animate__fadeInUp">
-                <div class="card-body">
-                    <h5 class="card-title">Lab 1</h5>
-                    <p class="card-text">Build a simple LED circuit.</p>
-                    <p><i class="fa-solid fa-database"></i> Storage: <strong>8 MB</strong></p>
-                    <p><i class="fa-solid fa-clock"></i> Time Spent: <strong>1 hr</strong></p>
-                    <a href="../labs/labtem.html" class="btn btn-primary">Start</a>
+    <!-- Quick Actions Section -->
+    <div class="container">
+        <div class="quick-actions-section fade-in">
+            <h3 class="section-title">Quick Actions</h3>
+            <div class="row g-3">
+                <div class="col-md-3 col-sm-6">
+                    <a href="createnew/createnew.html" class="quick-action-btn">
+                        <i class="fa-solid fa-plus-circle"></i>
+                        <span>New Workspace</span>
+                    </a>
+                </div>
+                <div class="col-md-3 col-sm-6">
+                    <a href="#" class="quick-action-btn">
+                        <i class="fa-solid fa-upload"></i>
+                        <span>Import Project</span>
+                    </a>
+                </div>
+                <div class="col-md-3 col-sm-6">
+                    <a href="../repository/#" class="quick-action-btn">
+                        <i class="fa-solid fa-code-fork"></i>
+                        <span>Browse Templates</span>
+                    </a>
+                </div>
+                <div class="col-md-3 col-sm-6">
+                    <a href="../pages/tutorials/tutorial.html" class="quick-action-btn">
+                        <i class="fa-solid fa-graduation-cap"></i>
+                        <span>Learn & Tutorials</span>
+                    </a>
                 </div>
             </div>
         </div>
-
-        <div class="col">
-            <div class="card animate__animated animate__fadeInUp">
-                <div class="card-body">
-                    <h5 class="card-title">Lab 2</h5>
-                    <p class="card-text">Build a simple robotics using Arduino.</p>
-                    <p><i class="fa-solid fa-database"></i> Storage: <strong>32 MB</strong></p>
-                    <p><i class="fa-solid fa-clock"></i> Time Spent: <strong>2.5 hrs</strong></p>
-                    <a href="../labs/labtem.html" class="btn btn-primary">Start</a>
-                </div>
-            </div>
-        </div>
-
-        <div class="col">
-            <div class="card animate__animated animate__fadeInUp">
-                <div class="card-body">
-                    <h5 class="card-title">Lab 3</h5>
-                    <p class="card-text">Build a simple AI using Python.</p>
-                    <p><i class="fa-solid fa-database"></i> Storage: <strong>50 MB</strong></p>
-                    <p><i class="fa-solid fa-clock"></i> Time Spent: <strong>4 hrs</strong></p>
-                    <a href="../labs/labtem.html" class="btn btn-primary">Start</a>
-                </div>
-            </div>
-        </div>
-
-        <div class="col">
-            <div class="card animate__animated animate__fadeInUp">
-                <div class="card-body">
-                    <h5 class="card-title">Lab 4</h5>
-                    <p class="card-text">Build a simple Web-App using HTML, CSS, and JavaScript.</p>
-                    <p><i class="fa-solid fa-database"></i> Storage: <strong>27 MB</strong></p>
-                    <p><i class="fa-solid fa-clock"></i> Time Spent: <strong>3 hrs</strong></p>
-                    <a href="../labs/labtem.html" class="btn btn-primary">Start</a>
-                </div>
-            </div>
-        </div>
-
-        <div class="col">
-            <div class="card animate__animated animate__fadeInUp">
-                <div class="card-body">
-                    <h5 class="card-title">Lab 5</h5>
-                    <p class="card-text">Build a simple Machine Learning model using TensorFlow.</p>
-                    <p><i class="fa-solid fa-database"></i> Storage: <strong>120 MB</strong></p>
-                    <p><i class="fa-solid fa-clock"></i> Time Spent: <strong>5.5 hrs</strong></p>
-                    <a href="../labs/labtem.html" class="btn btn-primary">Start</a>
-                </div>
-            </div>
-        </div>
-
-        <div class="col">
-            <div class="card animate__animated animate__fadeInUp" id="cardcolor">
-                <div class="card-body">
-                    <h5 class="card-title">Create New Lab</h5>
-                    <p class="card-text">Create a new lab from scratch.</p>
-                    <p> Remaing Labs <strong>0</strong></p>
-                    <a href="createnew/createnew.html" class="btn btn-secondary">Create</a>
-                    <a href="#" class="btn btn-primary">Buy New</a>
-                </div>
-            </div>
-        </div>
-
     </div>
-</div>
+
+    <!-- Project Workspaces Section -->
+    <div class="container">
+        <div class="section-header fade-in">
+            <h3 class="section-title">My Project Workspaces</h3>
+            <p class="section-subtitle">Collaborative spaces for designing and building electronics projects</p>
+        </div>
+    <div class="container">
+        <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4" id="cardContainer">
+            
+            <div class="col">
+                <div class="card lab-card fade-in">
+                    <div class="card-body">
+                        <div class="lab-card-header">
+                            <h5 class="lab-card-title"><i class="fa-solid fa-lightbulb"></i> Smart LED Controller</h5>
+                        </div>
+                        <p class="card-text">IoT-enabled LED strip controller with smartphone app and voice control integration.</p>
+                        <div class="lab-stats">
+                            <div class="stat-item">
+                                <i class="fa-solid fa-database"></i>
+                                <span class="stat-value">12 MB</span>
+                            </div>
+                            <div class="stat-item">
+                                <i class="fa-solid fa-users"></i>
+                                <span class="stat-value">3 collaborators</span>
+                            </div>
+                        </div>
+                        <a href="../labs/labtem.html" class="btn btn-lab w-100">
+                            <i class="fa-solid fa-folder-open"></i> Open Workspace
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col">
+                <div class="card lab-card fade-in">
+                    <div class="card-body">
+                        <div class="lab-card-header">
+                            <h5 class="lab-card-title"><i class="fa-solid fa-robot"></i> Autonomous Rover</h5>
+                        </div>
+                        <p class="card-text">Self-navigating rover with obstacle detection, camera streaming, and remote control capabilities.</p>
+                        <div class="lab-stats">
+                            <div class="stat-item">
+                                <i class="fa-solid fa-database"></i>
+                                <span class="stat-value">45 MB</span>
+                            </div>
+                            <div class="stat-item">
+                                <i class="fa-solid fa-users"></i>
+                                <span class="stat-value">7 collaborators</span>
+                            </div>
+                        </div>
+                        <a href="../labs/labtem.html" class="btn btn-lab w-100">
+                            <i class="fa-solid fa-folder-open"></i> Open Workspace
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col">
+                <div class="card lab-card fade-in">
+                    <div class="card-body">
+                        <div class="lab-card-header">
+                            <h5 class="lab-card-title"><i class="fa-solid fa-home"></i> Home Security System</h5>
+                        </div>
+                        <p class="card-text">Complete home automation system with sensors, cameras, and mobile notifications.</p>
+                        <div class="lab-stats">
+                            <div class="stat-item">
+                                <i class="fa-solid fa-database"></i>
+                                <span class="stat-value">78 MB</span>
+                            </div>
+                            <div class="stat-item">
+                                <i class="fa-solid fa-users"></i>
+                                <span class="stat-value">5 collaborators</span>
+                            </div>
+                        </div>
+                        <a href="../labs/labtem.html" class="btn btn-lab w-100">
+                            <i class="fa-solid fa-folder-open"></i> Open Workspace
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col">
+                <div class="card lab-card fade-in">
+                    <div class="card-body">
+                        <div class="lab-card-header">
+                            <h5 class="lab-card-title"><i class="fa-solid fa-wifi"></i> IoT Weather Station</h5>
+                        </div>
+                        <p class="card-text">Multi-sensor weather monitoring station with real-time data logging and web dashboard.</p>
+                        <div class="lab-stats">
+                            <div class="stat-item">
+                                <i class="fa-solid fa-database"></i>
+                                <span class="stat-value">23 MB</span>
+                            </div>
+                            <div class="stat-item">
+                                <i class="fa-solid fa-users"></i>
+                                <span class="stat-value">4 collaborators</span>
+                            </div>
+                        </div>
+                        <a href="../labs/labtem.html" class="btn btn-lab w-100">
+                            <i class="fa-solid fa-folder-open"></i> Open Workspace
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col">
+                <div class="card lab-card fade-in">
+                    <div class="card-body">
+                        <div class="lab-card-header">
+                            <h5 class="lab-card-title"><i class="fa-solid fa-heartbeat"></i> Health Monitor</h5>
+                        </div>
+                        <p class="card-text">Wearable health monitoring device with heart rate, temperature, and activity tracking.</p>
+                        <div class="lab-stats">
+                            <div class="stat-item">
+                                <i class="fa-solid fa-database"></i>
+                                <span class="stat-value">34 MB</span>
+                            </div>
+                            <div class="stat-item">
+                                <i class="fa-solid fa-users"></i>
+                                <span class="stat-value">6 collaborators</span>
+                            </div>
+                        </div>
+                        <a href="../labs/labtem.html" class="btn btn-lab w-100">
+                            <i class="fa-solid fa-folder-open"></i> Open Workspace
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col">
+                <div class="card lab-card create-new-card fade-in">
+                    <div class="card-body">
+                        <div class="lab-card-header">
+                            <h5 class="lab-card-title"><i class="fa-solid fa-plus-circle"></i> Create New Workspace</h5>
+                        </div>
+                        <p class="card-text">Start a new electronics project and collaborate with the community.</p>
+                        <div class="lab-stats">
+                            <div class="stat-item">
+                                <i class="fa-solid fa-layers"></i>
+                                <span>Remaining Workspaces: <span class="stat-value">5</span></span>
+                            </div>
+                        </div>
+                        <div class="d-flex gap-2">
+                            <a href="createnew/createnew.html" class="btn btn-secondary-custom flex-grow-1">
+                                <i class="fa-solid fa-plus"></i> Create
+                            </a>
+                            <a href="../pages/store/store.html" class="btn btn-lab flex-grow-1">
+                                <i class="fa-solid fa-shopping-cart"></i> Get More
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
 
 
-    <!-- Script -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     <script>
-        document.getElementById('searchForm').addEventListener('submit', function(event) {
-            event.preventDefault();
-            let searchQuery = document.getElementById('searchInput').value.toLowerCase();
-            let cards = document.querySelectorAll('#cardContainer .col');
+        // Performance optimized search with debouncing
+        let searchTimeout;
+        const searchInput = document.getElementById('searchInput');
+        const searchForm = document.getElementById('searchForm');
+        const cards = document.querySelectorAll('#cardContainer .col');
+
+        // Debounced search function
+        function performSearch(query) {
+            const searchQuery = query.toLowerCase().trim();
+            let visibleCount = 0;
+
             cards.forEach(function(card) {
-                let title = card.querySelector('.card-title').textContent.toLowerCase();
-                let text = card.querySelector('.card-text').textContent.toLowerCase();
-                if (title.includes(searchQuery) || text.includes(searchQuery)) {
+                const title = card.querySelector('.lab-card-title')?.textContent.toLowerCase() || '';
+                const text = card.querySelector('.card-text')?.textContent.toLowerCase() || '';
+                
+                const isVisible = searchQuery === '' || 
+                                title.includes(searchQuery) || 
+                                text.includes(searchQuery);
+                
+                if (isVisible) {
                     card.style.display = '';
+                    card.style.animation = 'fadeIn 0.3s ease-in-out';
+                    visibleCount++;
                 } else {
                     card.style.display = 'none';
                 }
             });
+
+            // Show "no results" message if needed
+            updateNoResultsMessage(visibleCount, searchQuery);
+        }
+
+        function updateNoResultsMessage(visibleCount, query) {
+            const container = document.getElementById('cardContainer');
+            let noResultsMsg = document.getElementById('noResultsMessage');
+            
+            if (visibleCount === 0 && query !== '') {
+                if (!noResultsMsg) {
+                    noResultsMsg = document.createElement('div');
+                    noResultsMsg.id = 'noResultsMessage';
+                    noResultsMsg.className = 'col-12 text-center mt-4';
+                    noResultsMsg.innerHTML = `
+                        <div class="alert alert-info">
+                            <i class="fa-solid fa-search"></i>
+                            <h5>No workspaces found</h5>
+                            <p>Try searching with different keywords or browse all available project workspaces.</p>
+                        </div>
+                    `;
+                    container.appendChild(noResultsMsg);
+                }
+            } else if (noResultsMsg) {
+                noResultsMsg.remove();
+            }
+        }
+
+        // Real-time search with debouncing
+        searchInput.addEventListener('input', function(event) {
+            clearTimeout(searchTimeout);
+            searchTimeout = setTimeout(() => {
+                performSearch(event.target.value);
+            }, 300);
+        });
+
+        // Handle form submission
+        searchForm.addEventListener('submit', function(event) {
+            event.preventDefault();
+            clearTimeout(searchTimeout);
+            performSearch(searchInput.value);
+        });
+
+        // Add loading states to buttons
+        document.querySelectorAll('.btn-lab').forEach(button => {
+            button.addEventListener('click', function(e) {
+                if (!this.classList.contains('loading')) {
+                    this.classList.add('loading');
+                    const originalText = this.innerHTML;
+                    this.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Loading...';
+                    
+                    // Simulate loading (remove this in production)
+                    setTimeout(() => {
+                        this.innerHTML = originalText;
+                        this.classList.remove('loading');
+                    }, 1000);
+                }
+            });
+        });
+
+        // Lazy load animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        // Observe all cards for animations
+        document.querySelectorAll('.lab-card').forEach(card => {
+            card.style.opacity = '0';
+            card.style.transform = 'translateY(20px)';
+            card.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+            observer.observe(card);
+        });
+
+        // Add smooth scrolling for better UX
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Clear search functionality
+        function clearSearch() {
+            searchInput.value = '';
+            performSearch('');
+        }
+
+        // Add clear button to search if there's text
+        searchInput.addEventListener('input', function() {
+            const clearBtn = document.getElementById('clearSearchBtn');
+            if (this.value && !clearBtn) {
+                const btn = document.createElement('button');
+                btn.type = 'button';
+                btn.id = 'clearSearchBtn';
+                btn.className = 'btn btn-outline-secondary';
+                btn.innerHTML = '<i class="fa-solid fa-times"></i>';
+                btn.style.position = 'absolute';
+                btn.style.right = '80px';
+                btn.style.top = '50%';
+                btn.style.transform = 'translateY(-50%)';
+                btn.style.zIndex = '10';
+                btn.onclick = clearSearch;
+                this.parentElement.style.position = 'relative';
+                this.parentElement.appendChild(btn);
+            } else if (!this.value && clearBtn) {
+                clearBtn.remove();
+            }
         });
     </script>
 

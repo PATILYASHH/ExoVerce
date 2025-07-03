@@ -4,78 +4,814 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ExoVerce -> Profile</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <meta name="description" content="ExoVerce Profile - Manage your learning journey and account settings">
+    
+    <!-- Preload critical resources -->
+    <link rel="preload" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" as="style">
+    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" as="style">
+    <link rel="preload" href="../css/global.css" as="style">
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <link rel="stylesheet" href="../css/global.css">
     <link rel="stylesheet" href="profile.css">
+
+    <style>
+        :root {
+            --primary-color: #4a90e2;
+            --secondary-color: #f8d210;
+            --success-color: #28a745;
+            --danger-color: #dc3545;
+            --warning-color: #ffc107;
+            --info-color: #17a2b8;
+            --dark-color: #1a1a1a;
+            --light-color: #f8f9fa;
+            --gradient-bg: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --gradient-secondary: linear-gradient(135deg, #ffeaa7 0%, #fab1a0 100%);
+            --card-shadow: 0 8px 20px rgba(0,0,0,0.1);
+            --hover-transform: translateY(-5px);
+            --border-radius: 15px;
+        }
+
+        body {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        .navbar {
+            background: var(--gradient-bg) !important;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 2px 20px rgba(0,0,0,0.15);
+        }
+
+        .navbar-brand {
+            font-size: 1.5rem;
+            font-weight: 700;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .back-link {
+            background: rgba(255,255,255,0.1);
+            border: 2px solid rgba(255,255,255,0.2);
+            border-radius: 25px;
+            padding: 0.5rem 1.5rem;
+            backdrop-filter: blur(5px);
+            transition: all 0.3s ease;
+            color: white !important;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .back-link:hover {
+            background: rgba(255,255,255,0.2);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            color: white !important;
+        }
+
+        .profile-header {
+            background: rgba(255,255,255,0.95);
+            border-radius: var(--border-radius);
+            box-shadow: var(--card-shadow);
+            padding: 2rem;
+            margin: 2rem 0;
+            backdrop-filter: blur(10px);
+        }
+
+        .profile-avatar {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            background: var(--gradient-bg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 3rem;
+            margin: 0 auto 1rem;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+            position: relative;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .profile-avatar:hover {
+            transform: scale(1.05);
+            box-shadow: 0 12px 30px rgba(0,0,0,0.2);
+        }
+
+        .profile-avatar::after {
+            content: '';
+            position: absolute;
+            bottom: 8px;
+            right: 8px;
+            width: 30px;
+            height: 30px;
+            background: var(--success-color);
+            border-radius: 50%;
+            border: 3px solid white;
+        }
+
+        .profile-info h2 {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--dark-color);
+            margin-bottom: 0.5rem;
+        }
+
+        .profile-subtitle {
+            color: #666;
+            font-size: 1.1rem;
+            margin-bottom: 1rem;
+        }
+
+        .profile-stats {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-top: 1.5rem;
+        }
+
+        .stat-item {
+            text-align: center;
+            padding: 1rem;
+            background: var(--light-color);
+            border-radius: 10px;
+            min-width: 100px;
+        }
+
+        .stat-number {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary-color);
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            color: #666;
+            margin-top: 0.25rem;
+        }
+
+        .profile-sections {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .profile-card {
+            background: white;
+            border-radius: var(--border-radius);
+            padding: 1.5rem;
+            box-shadow: var(--card-shadow);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            border: none;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .profile-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: var(--gradient-bg);
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
+        }
+
+        .profile-card:hover {
+            transform: var(--hover-transform);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.15);
+        }
+
+        .profile-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .card-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            color: white;
+            margin-bottom: 1rem;
+        }
+
+        .card-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--dark-color);
+            margin-bottom: 0.5rem;
+        }
+
+        .card-description {
+            color: #666;
+            font-size: 0.95rem;
+            line-height: 1.4;
+        }
+
+        /* Different icon colors for categories */
+        .card-icon.account { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); }
+        .card-icon.learning { background: linear-gradient(135deg, #ffeaa7 0%, #fab1a0 100%); }
+        .card-icon.business { background: linear-gradient(135deg, #55a3ff 0%, #003d82 100%); }
+        .card-icon.settings { background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%); }
+
+        .quick-actions {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            z-index: 1000;
+        }
+
+        .fab-button {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: var(--gradient-bg);
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .fab-button:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 25px rgba(0,0,0,0.4);
+        }
+
+        @media (max-width: 768px) {
+            .profile-stats {
+                flex-direction: column;
+                gap: 1rem;
+            }
+            
+            .profile-sections {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+            
+            .profile-header {
+                padding: 1.5rem;
+                margin: 1rem;
+            }
+            
+            .quick-actions {
+                bottom: 1rem;
+                right: 1rem;
+            }
+        }
+
+        /* Loading states */
+        .loading {
+            opacity: 0.7;
+            pointer-events: none;
+        }
+
+        .loading::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 20px;
+            height: 20px;
+            margin: -10px 0 0 -10px;
+            border: 2px solid #ccc;
+            border-top-color: var(--primary-color);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* Animations */
+        .fade-in {
+            animation: fadeInUp 0.6s ease-out;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .stagger-animation {
+            animation-delay: calc(var(--stagger) * 0.1s);
+        }
+    </style>
 </head>
 <body>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark p-3">
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark p-3">
         <div class="container-fluid">
             <span class="navbar-brand">
-                <i class="fa-solid fa-lightbulb"></i> Exosynk*
+                <i class="fa-solid fa-lightbulb"></i> ExoVerce
             </span>
-            <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
-                <ul class="navbar-nav">
-                    <li class="nav-item">
-                        <a href="../home/home.html" class="nav-link"> Back</a>
-                    </li>
-                </ul>
+            <div class="ms-auto">
+                <a href="../home/home.html" class="back-link">
+                    <i class="fa-solid fa-arrow-left"></i> Back to Home
+                </a>
             </div>
         </div>
     </nav>
 
-    <div class="container text-center mt-4">
-        <div class="profile-pic mx-auto">
-            <i class="fa-solid fa-user fa-5x"></i>
-        </div>
-        <h3 class="fw-bold mt-2">Name</h3>
-
-        <div class="row mt-4">
-            <div class="col-md-4 mb-2" id="card" >
-                <button class="btn btn-light w-100">Subscriptions</button>
+    <!-- Profile Header -->
+    <div class="container">
+        <div class="profile-header fade-in text-center">
+            <div class="profile-avatar" onclick="changeProfilePicture()">
+                <i class="fa-solid fa-user"></i>
             </div>
-            <div class="col-md-4 mb-2" id="card">
-                <button class="btn btn-light w-100">My Orders</button>
-            </div>
-            <div class="col-md-4 mb-2" id="card">
-                <button class="btn btn-light w-100">Settings</button>
-            </div>
-            <div class="col-md-4 mb-2" id="card">
-                <button class="btn btn-light w-100">Storage</button>
-            </div>
-            <div class="col-md-4 mb-2" id="card">
-                <button class="btn btn-light w-100">Work Time</button>
-            </div>
-            <div class="col-md-4 mb-2" id="card">
-                <button class="btn btn-light w-100">Privacy</button>
-            </div>
-            <div class="col-md-4 mb-2" id="card">
-                <button class="btn btn-light w-100">Contribution</button>
-            </div>
-            <div class="col-md-4 mb-2" id="card">
-                <button class="btn btn-light w-100">Learn</button>
-            </div>
-            <div class="col-md-4 mb-2" id="card">
-                <button class="btn btn-light w-100">Achievement</button>
-            </div>
-             <div class="col-md-4 mb-2" id="card">
-                <button class="btn btn-light w-100">About</button>
-            </div>
-            <div class="col-md-4 mb-2" id="card">
-                <button class="btn btn-light w-100">Deploy</button>
-            </div>
-            <div class="col-md-4 mb-2" id="card">
-                <button class="btn btn-light w-100">Sell</button>
-            </div>
-            <div class="col-md-4 mb-2" id="card">
-                <button class="btn btn-light w-100">Earning</button>
-            </div>
-             <div class="col-md-4 mb-2" id="card">
-                <button class="btn btn-light w-100">Notifications</button>
+            
+            <div class="profile-info">
+                <h2 id="userName">Alex Thompson</h2>
+                <p class="profile-subtitle">
+                    <i class="fa-solid fa-graduation-cap"></i> Learning Enthusiast | 
+                    <i class="fa-solid fa-code"></i> Developer | 
+                    <i class="fa-solid fa-star"></i> ExoVerce Member
+                </p>
+                
+                <div class="profile-stats">
+                    <div class="stat-item">
+                        <div class="stat-number">24</div>
+                        <div class="stat-label">Labs Completed</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">156</div>
+                        <div class="stat-label">Hours Learned</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">12</div>
+                        <div class="stat-label">Achievements</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">89%</div>
+                        <div class="stat-label">Progress</div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Profile Sections -->
+    <div class="container">
+        <div class="profile-sections">
+            
+            <!-- Account Management -->
+            <div class="profile-card fade-in stagger-animation" style="--stagger: 1" onclick="navigateToSection('subscriptions')">
+                <div class="card-icon account">
+                    <i class="fa-solid fa-crown"></i>
+                </div>
+                <h3 class="card-title">Subscriptions</h3>
+                <p class="card-description">Manage your premium plans and subscription billing</p>
+            </div>
+
+            <div class="profile-card fade-in stagger-animation" style="--stagger: 2" onclick="navigateToSection('orders')">
+                <div class="card-icon business">
+                    <i class="fa-solid fa-shopping-bag"></i>
+                </div>
+                <h3 class="card-title">My Orders</h3>
+                <p class="card-description">View your purchase history and order status</p>
+            </div>
+
+            <div class="profile-card fade-in stagger-animation" style="--stagger: 3" onclick="navigateToSection('settings')">
+                <div class="card-icon settings">
+                    <i class="fa-solid fa-cog"></i>
+                </div>
+                <h3 class="card-title">Settings</h3>
+                <p class="card-description">Customize your account preferences and configurations</p>
+            </div>
+
+            <!-- Storage & Usage -->
+            <div class="profile-card fade-in stagger-animation" style="--stagger: 4" onclick="navigateToSection('storage')">
+                <div class="card-icon account">
+                    <i class="fa-solid fa-database"></i>
+                </div>
+                <h3 class="card-title">Storage</h3>
+                <p class="card-description">Monitor your storage usage and manage your files</p>
+            </div>
+
+            <div class="profile-card fade-in stagger-animation" style="--stagger: 5" onclick="navigateToSection('worktime')">
+                <div class="card-icon learning">
+                    <i class="fa-solid fa-clock"></i>
+                </div>
+                <h3 class="card-title">Work Time</h3>
+                <p class="card-description">Track your learning hours and productivity metrics</p>
+            </div>
+
+            <div class="profile-card fade-in stagger-animation" style="--stagger: 6" onclick="navigateToSection('privacy')">
+                <div class="card-icon settings">
+                    <i class="fa-solid fa-shield-alt"></i>
+                </div>
+                <h3 class="card-title">Privacy</h3>
+                <p class="card-description">Control your privacy settings and data preferences</p>
+            </div>
+
+            <!-- Learning & Growth -->
+            <div class="profile-card fade-in stagger-animation" style="--stagger: 7" onclick="navigateToSection('contribution')">
+                <div class="card-icon learning">
+                    <i class="fa-solid fa-heart"></i>
+                </div>
+                <h3 class="card-title">Contribution</h3>
+                <p class="card-description">Share your knowledge and contribute to the community</p>
+            </div>
+
+            <div class="profile-card fade-in stagger-animation" style="--stagger: 8" onclick="navigateToSection('learn')">
+                <div class="card-icon learning">
+                    <i class="fa-solid fa-book-open"></i>
+                </div>
+                <h3 class="card-title">Learning Path</h3>
+                <p class="card-description">View your learning progress and recommended courses</p>
+            </div>
+
+            <div class="profile-card fade-in stagger-animation" style="--stagger: 9" onclick="navigateToSection('achievement')">
+                <div class="card-icon account">
+                    <i class="fa-solid fa-trophy"></i>
+                </div>
+                <h3 class="card-title">Achievements</h3>
+                <p class="card-description">Showcase your accomplishments and earned badges</p>
+            </div>
+
+            <!-- Business & Professional -->
+            <div class="profile-card fade-in stagger-animation" style="--stagger: 10" onclick="navigateToSection('about')">
+                <div class="card-icon settings">
+                    <i class="fa-solid fa-info-circle"></i>
+                </div>
+                <h3 class="card-title">About</h3>
+                <p class="card-description">Learn more about ExoVerce and our mission</p>
+            </div>
+
+            <div class="profile-card fade-in stagger-animation" style="--stagger: 11" onclick="navigateToSection('deploy')">
+                <div class="card-icon business">
+                    <i class="fa-solid fa-rocket"></i>
+                </div>
+                <h3 class="card-title">Deploy</h3>
+                <p class="card-description">Deploy your projects and share them with the world</p>
+            </div>
+
+            <div class="profile-card fade-in stagger-animation" style="--stagger: 12" onclick="navigateToSection('sell')">
+                <div class="card-icon business">
+                    <i class="fa-solid fa-store"></i>
+                </div>
+                <h3 class="card-title">Marketplace</h3>
+                <p class="card-description">Sell your courses and content on ExoVerce marketplace</p>
+            </div>
+
+            <div class="profile-card fade-in stagger-animation" style="--stagger: 13" onclick="navigateToSection('earning')">
+                <div class="card-icon business">
+                    <i class="fa-solid fa-dollar-sign"></i>
+                </div>
+                <h3 class="card-title">Earnings</h3>
+                <p class="card-description">Track your revenue and financial performance</p>
+            </div>
+
+            <div class="profile-card fade-in stagger-animation" style="--stagger: 14" onclick="navigateToSection('notifications')">
+                <div class="card-icon settings">
+                    <i class="fa-solid fa-bell"></i>
+                </div>
+                <h3 class="card-title">Notifications</h3>
+                <p class="card-description">Manage your notification preferences and alerts</p>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Quick Actions FAB -->
+    <div class="quick-actions">
+        <button class="fab-button" onclick="showQuickMenu()" title="Quick Actions">
+            <i class="fa-solid fa-plus"></i>
+        </button>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Profile Management System
+        class ProfileManager {
+            constructor() {
+                this.initializeProfile();
+                this.setupEventListeners();
+                this.loadUserData();
+            }
+
+            initializeProfile() {
+                // Add stagger animation delays
+                document.querySelectorAll('.stagger-animation').forEach((card, index) => {
+                    card.style.animationDelay = `${index * 0.1}s`;
+                });
+            }
+
+            setupEventListeners() {
+                // Add hover effects for better UX
+                document.querySelectorAll('.profile-card').forEach(card => {
+                    card.addEventListener('mouseenter', this.handleCardHover);
+                    card.addEventListener('mouseleave', this.handleCardLeave);
+                });
+
+                // Add keyboard navigation
+                document.addEventListener('keydown', this.handleKeyNavigation.bind(this));
+            }
+
+            handleCardHover(e) {
+                e.currentTarget.style.transform = 'translateY(-8px) scale(1.02)';
+                e.currentTarget.style.boxShadow = '0 20px 40px rgba(0,0,0,0.2)';
+            }
+
+            handleCardLeave(e) {
+                e.currentTarget.style.transform = '';
+                e.currentTarget.style.boxShadow = '';
+            }
+
+            handleKeyNavigation(e) {
+                if (e.key === 'Escape') {
+                    this.closeQuickMenu();
+                }
+            }
+
+            loadUserData() {
+                // Simulate loading user data
+                const userData = {
+                    name: 'Alex Thompson',
+                    labsCompleted: 24,
+                    hoursLearned: 156,
+                    achievements: 12,
+                    progress: 89
+                };
+
+                this.updateUserStats(userData);
+            }
+
+            updateUserStats(data) {
+                const stats = document.querySelectorAll('.stat-number');
+                const values = [data.labsCompleted, data.hoursLearned, data.achievements, `${data.progress}%`];
+                
+                stats.forEach((stat, index) => {
+                    this.animateCounter(stat, 0, parseInt(values[index]) || 0, 1000);
+                });
+            }
+
+            animateCounter(element, start, end, duration) {
+                const range = end - start;
+                const increment = range / (duration / 16);
+                let current = start;
+
+                const timer = setInterval(() => {
+                    current += increment;
+                    if (current >= end) {
+                        current = end;
+                        clearInterval(timer);
+                    }
+                    
+                    if (element.textContent.includes('%')) {
+                        element.textContent = Math.floor(current) + '%';
+                    } else {
+                        element.textContent = Math.floor(current);
+                    }
+                }, 16);
+            }
+        }
+
+        // Navigation Functions
+        function navigateToSection(section) {
+            // Add loading state
+            const clickedCard = event.currentTarget;
+            clickedCard.classList.add('loading');
+            
+            // Show loading feedback
+            const originalContent = clickedCard.innerHTML;
+            
+            setTimeout(() => {
+                // Remove loading state
+                clickedCard.classList.remove('loading');
+                
+                // Navigate to specific pages
+                if (section === 'subscriptions') {
+                    window.location.href = './subscription.html';
+                } else if (section === 'achievement') {
+                    window.location.href = '../achivements/achievements.html';
+                } else if (section === 'learn') {
+                    window.location.href = '../pages/tutorials/tutorial.html';
+                } else if (section === 'orders') {
+                    window.location.href = '../pages/store/store.html';
+                } else {
+                    // For other sections, show coming soon message
+                    console.log(`Navigating to ${section} section`);
+                    showToast(`${section.charAt(0).toUpperCase() + section.slice(1)} section coming soon!`, 'info');
+                }
+            }, 800);
+        }
+
+        function changeProfilePicture() {
+            showToast('Profile picture upload feature coming soon!', 'info');
+        }
+
+        let quickMenuOpen = false;
+
+        function showQuickMenu() {
+            const fabButton = document.querySelector('.fab-button i');
+            
+            if (!quickMenuOpen) {
+                // Create quick menu
+                const quickMenu = document.createElement('div');
+                quickMenu.id = 'quickMenu';
+                quickMenu.className = 'quick-menu';
+                quickMenu.innerHTML = `
+                    <div class="quick-menu-overlay" onclick="closeQuickMenu()"></div>
+                    <div class="quick-menu-content">
+                        <div class="quick-menu-item" onclick="editProfile()">
+                            <i class="fa-solid fa-edit"></i> Edit Profile
+                        </div>
+                        <div class="quick-menu-item" onclick="changeTheme()">
+                            <i class="fa-solid fa-palette"></i> Change Theme
+                        </div>
+                        <div class="quick-menu-item" onclick="exportData()">
+                            <i class="fa-solid fa-download"></i> Export Data
+                        </div>
+                        <div class="quick-menu-item" onclick="contactSupport()">
+                            <i class="fa-solid fa-life-ring"></i> Help & Support
+                        </div>
+                    </div>
+                `;
+
+                // Add styles for quick menu
+                const style = document.createElement('style');
+                style.textContent = `
+                    .quick-menu {
+                        position: fixed;
+                        top: 0;
+                        left: 0;
+                        right: 0;
+                        bottom: 0;
+                        z-index: 2000;
+                    }
+                    .quick-menu-overlay {
+                        position: absolute;
+                        top: 0;
+                        left: 0;
+                        right: 0;
+                        bottom: 0;
+                        background: rgba(0,0,0,0.5);
+                        backdrop-filter: blur(5px);
+                    }
+                    .quick-menu-content {
+                        position: absolute;
+                        bottom: 100px;
+                        right: 2rem;
+                        background: white;
+                        border-radius: 15px;
+                        box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+                        overflow: hidden;
+                        animation: slideUp 0.3s ease-out;
+                    }
+                    .quick-menu-item {
+                        padding: 1rem 1.5rem;
+                        cursor: pointer;
+                        transition: background 0.2s ease;
+                        display: flex;
+                        align-items: center;
+                        gap: 0.5rem;
+                        min-width: 200px;
+                    }
+                    .quick-menu-item:hover {
+                        background: var(--light-color);
+                    }
+                    @keyframes slideUp {
+                        from { transform: translateY(100%); opacity: 0; }
+                        to { transform: translateY(0); opacity: 1; }
+                    }
+                `;
+                document.head.appendChild(style);
+                document.body.appendChild(quickMenu);
+
+                fabButton.className = 'fa-solid fa-times';
+                quickMenuOpen = true;
+            } else {
+                closeQuickMenu();
+            }
+        }
+
+        function closeQuickMenu() {
+            const quickMenu = document.getElementById('quickMenu');
+            const fabButton = document.querySelector('.fab-button i');
+            
+            if (quickMenu) {
+                quickMenu.remove();
+                fabButton.className = 'fa-solid fa-plus';
+                quickMenuOpen = false;
+            }
+        }
+
+        // Quick Menu Actions
+        function editProfile() {
+            closeQuickMenu();
+            showToast('Edit profile feature coming soon!', 'info');
+        }
+
+        function changeTheme() {
+            closeQuickMenu();
+            showToast('Theme customization coming soon!', 'info');
+        }
+
+        function exportData() {
+            closeQuickMenu();
+            showToast('Data export initiated...', 'success');
+        }
+
+        function contactSupport() {
+            closeQuickMenu();
+            showToast('Redirecting to support...', 'info');
+        }
+
+        // Toast Notification System
+        function showToast(message, type = 'info') {
+            const toast = document.createElement('div');
+            toast.className = `toast-notification toast-${type}`;
+            toast.innerHTML = `
+                <div class="toast-content">
+                    <i class="fa-solid fa-${getToastIcon(type)}"></i>
+                    <span>${message}</span>
+                </div>
+            `;
+
+            // Add toast styles
+            const style = document.createElement('style');
+            style.textContent = `
+                .toast-notification {
+                    position: fixed;
+                    top: 2rem;
+                    right: 2rem;
+                    background: white;
+                    border-radius: 10px;
+                    box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+                    padding: 1rem 1.5rem;
+                    z-index: 3000;
+                    animation: slideInRight 0.3s ease-out;
+                    border-left: 4px solid var(--primary-color);
+                }
+                .toast-success { border-left-color: var(--success-color); }
+                .toast-warning { border-left-color: var(--warning-color); }
+                .toast-danger { border-left-color: var(--danger-color); }
+                .toast-content {
+                    display: flex;
+                    align-items: center;
+                    gap: 0.5rem;
+                }
+                @keyframes slideInRight {
+                    from { transform: translateX(100%); opacity: 0; }
+                    to { transform: translateX(0); opacity: 1; }
+                }
+            `;
+            
+            if (!document.querySelector('#toast-styles')) {
+                style.id = 'toast-styles';
+                document.head.appendChild(style);
+            }
+
+            document.body.appendChild(toast);
+
+            setTimeout(() => {
+                toast.style.animation = 'slideInRight 0.3s ease-out reverse';
+                setTimeout(() => toast.remove(), 300);
+            }, 3000);
+        }
+
+        function getToastIcon(type) {
+            const icons = {
+                info: 'info-circle',
+                success: 'check-circle',
+                warning: 'exclamation-triangle',
+                danger: 'exclamation-circle'
+            };
+            return icons[type] || 'info-circle';
+        }
+
+        // Initialize profile when page loads
+        document.addEventListener('DOMContentLoaded', () => {
+            new ProfileManager();
+        });
+
+        // Add performance monitoring
+        window.addEventListener('load', () => {
+            const loadTime = performance.now();
+            console.log(`Profile page loaded in ${loadTime.toFixed(2)}ms`);
+        });
+    </script>
+
 </body>
 </html>

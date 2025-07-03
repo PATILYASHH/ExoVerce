@@ -3,47 +3,218 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Exoverce Wiring Lab</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <style>
-        /* Temporary inline CSS - move to labtem.css later */
-        .component {
-            position: absolute;
-            cursor: move;
-            user-select: none;
-        }
-        .port {
-            width: 20px;
-            height: 20px;
-            border-radius: 50%;
-        }
-        .wire {
-            position: absolute;
-            pointer-events: none;
-        }
-    </style>
+    <title>ExoVerce - Project Workspace</title>
+    
+    <!-- Preload critical resources -->
+    <link rel="preload" href="../css/global.css" as="style">
+    <link rel="preload" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" as="style">
+    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" as="style">
+    
+    <!-- CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" rel="stylesheet">
+    <link href="../css/global.css" rel="stylesheet">
+    <link href="labtem.css" rel="stylesheet">
 </head>
 <body>
-    <div class="d-flex vh-100">
-        <div class="sidebar bg-dark text-white p-3" style="width: 250px;">
-            <h4 class="border-bottom pb-2">Tools</h4>
-            <button class="btn btn-outline-light mb-2 w-100" onclick="addComponent('positive')">+ Port</button>
-            <button class="btn btn-outline-light mb-2 w-100" onclick="addComponent('negative')">- Port</button>
-            <button class="btn btn-outline-light mb-2 w-100" onclick="toggleWireMode()">Wire Tool</button>
-            <button class="btn btn-outline-light mb-2 w-100" onclick="addComponent('bulb')">Bulb</button>
-            <div class="mt-4">
-                <button class="btn btn-success w-100 mb-2" onclick="undo()">Undo</button>
-                <button class="btn btn-warning w-100" onclick="redo()">Redo</button>
+    <!-- Header -->
+    <nav class="navbar navbar-expand-lg">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="../home/home.html">
+                <i class="fas fa-rocket me-2"></i>
+                ExoVerce Workspace
+            </a>
+            <div class="navbar-nav ms-auto">
+                <button class="btn btn-outline-light me-2" onclick="saveProject()">
+                    <i class="fas fa-save me-2"></i>Save
+                </button>
+                <button class="btn btn-outline-light" onclick="loadProject()">
+                    <i class="fas fa-folder-open me-2"></i>Load
+                </button>
             </div>
         </div>
-        <div id="canvas" class="flex-grow-1 position-relative bg-light" 
-             onmousedown="handleMouseDown(event)"
-             onmousemove="handleMouseMove(event)"
-             onmouseup="handleMouseUp(event)">
+    </nav>
+
+    <div class="d-flex vh-100" style="height: calc(100vh - 70px);">
+        <!-- Sidebar -->
+        <div class="lab-sidebar">
+            <div class="sidebar-header">
+                <h5 class="text-white mb-0">
+                    <i class="fas fa-tools me-2"></i>
+                    Components
+                </h5>
+            </div>
+            
+            <div class="component-section">
+                <h6 class="section-title">
+                    <i class="fas fa-plug me-2"></i>
+                    Power Sources
+                </h6>
+                <button class="btn btn-component" onclick="addComponent('positive')" data-bs-toggle="tooltip" title="Positive Terminal">
+                    <i class="fas fa-plus-circle me-2"></i>
+                    + Terminal
+                </button>
+                <button class="btn btn-component" onclick="addComponent('negative')" data-bs-toggle="tooltip" title="Negative Terminal">
+                    <i class="fas fa-minus-circle me-2"></i>
+                    - Terminal
+                </button>
+                <button class="btn btn-component" onclick="addComponent('battery')" data-bs-toggle="tooltip" title="Battery">
+                    <i class="fas fa-battery-full me-2"></i>
+                    Battery
+                </button>
+            </div>
+            
+            <div class="component-section">
+                <h6 class="section-title">
+                    <i class="fas fa-lightbulb me-2"></i>
+                    Output Devices
+                </h6>
+                <button class="btn btn-component" onclick="addComponent('bulb')" data-bs-toggle="tooltip" title="Light Bulb">
+                    <i class="fas fa-lightbulb me-2"></i>
+                    Bulb
+                </button>
+                <button class="btn btn-component" onclick="addComponent('led')" data-bs-toggle="tooltip" title="LED">
+                    <i class="fas fa-circle me-2"></i>
+                    LED
+                </button>
+                <button class="btn btn-component" onclick="addComponent('motor')" data-bs-toggle="tooltip" title="Motor">
+                    <i class="fas fa-cog me-2"></i>
+                    Motor
+                </button>
+            </div>
+            
+            <div class="component-section">
+                <h6 class="section-title">
+                    <i class="fas fa-sliders-h me-2"></i>
+                    Circuit Elements
+                </h6>
+                <button class="btn btn-component" onclick="addComponent('resistor')" data-bs-toggle="tooltip" title="Resistor">
+                    <i class="fas fa-bars me-2"></i>
+                    Resistor
+                </button>
+                <button class="btn btn-component" onclick="addComponent('switch')" data-bs-toggle="tooltip" title="Switch">
+                    <i class="fas fa-toggle-off me-2"></i>
+                    Switch
+                </button>
+            </div>
+            
+            <div class="component-section">
+                <h6 class="section-title">
+                    <i class="fas fa-bezier-curve me-2"></i>
+                    Tools
+                </h6>
+                <button class="btn btn-tool" onclick="toggleWireMode()" id="wireBtn">
+                    <i class="fas fa-project-diagram me-2"></i>
+                    Wire Tool
+                </button>
+                <button class="btn btn-tool" onclick="deleteMode()" id="deleteBtn">
+                    <i class="fas fa-trash me-2"></i>
+                    Delete
+                </button>
+            </div>
+            
+            <div class="sidebar-footer">
+                <div class="btn-group w-100 mb-2">
+                    <button class="btn btn-success btn-sm" onclick="undo()" data-bs-toggle="tooltip" title="Undo">
+                        <i class="fas fa-undo"></i>
+                    </button>
+                    <button class="btn btn-warning btn-sm" onclick="redo()" data-bs-toggle="tooltip" title="Redo">
+                        <i class="fas fa-redo"></i>
+                    </button>
+                    <button class="btn btn-info btn-sm" onclick="clearCanvas()" data-bs-toggle="tooltip" title="Clear All">
+                        <i class="fas fa-eraser"></i>
+                    </button>
+                </div>
+                <button class="btn btn-primary w-100" onclick="simulateCircuit()">
+                    <i class="fas fa-play me-2"></i>
+                    Simulate
+                </button>
+            </div>
+        </div>
+
+        <!-- Main Canvas Area -->
+        <div class="lab-canvas-container">
+            <div class="canvas-header">
+                <div class="canvas-info">
+                    <span class="badge bg-primary me-2">
+                        <i class="fas fa-microchip me-1"></i>
+                        Circuit Designer
+                    </span>
+                    <span class="badge bg-secondary" id="componentCount">
+                        <i class="fas fa-cubes me-1"></i>
+                        0 Components
+                    </span>
+                </div>
+                <div class="canvas-controls">
+                    <button class="btn btn-outline-secondary btn-sm" onclick="zoomOut()">
+                        <i class="fas fa-search-minus"></i>
+                    </button>
+                    <span class="zoom-level mx-2">100%</span>
+                    <button class="btn btn-outline-secondary btn-sm" onclick="zoomIn()">
+                        <i class="fas fa-search-plus"></i>
+                    </button>
+                </div>
+            </div>
+            
+            <div id="canvas" class="lab-canvas" 
+                 onmousedown="handleMouseDown(event)"
+                 onmousemove="handleMouseMove(event)"
+                 onmouseup="handleMouseUp(event)">
+                
+                <!-- Grid Background -->
+                <svg class="grid-background">
+                    <defs>
+                        <pattern id="grid" width="20" height="20" patternUnits="userSpaceOnUse">
+                            <path d="M 20 0 L 0 0 0 20" fill="none" stroke="rgba(74, 144, 226, 0.1)" stroke-width="1"/>
+                        </pattern>
+                    </defs>
+                    <rect width="100%" height="100%" fill="url(#grid)" />
+                </svg>
+                
+                <!-- Wire Layer -->
+                <svg class="wire-layer">
+                    <!-- Wires will be dynamically added here -->
+                </svg>
+                
+                <!-- Component Layer -->
+                <div class="component-layer">
+                    <!-- Components will be dynamically added here -->
+                </div>
+            </div>
         </div>
     </div>
 
+    <!-- Simulation Results Modal -->
+    <div class="modal fade" id="simulationModal" tabindex="-1">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">
+                        <i class="fas fa-chart-line me-2"></i>
+                        Simulation Results
+                    </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <div id="simulationResults">
+                        <!-- Results will be populated here -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/interactjs/dist/interact.min.js"></script>
     <script src="labtem.js"></script>
+    
+    <script>
+        // Initialize tooltips
+        const tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
+        const tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+            return new bootstrap.Tooltip(tooltipTriggerEl);
+        });
+    </script>
 </body>
 </html>

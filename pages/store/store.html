@@ -3,98 +3,633 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Exostore - Electronic Building Marketplace</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-<link rel="stylesheet" href="store.css">
+    <title>ExoVerce Store - Build, Buy, Create</title>
+    <meta name="description" content="ExoVerce Store - Buy electronic components, user builds, and showcase your own projects">
+    
+    <!-- Preload critical resources -->
+    <link rel="preload" href="../../css/global.css" as="style">
+    <link rel="preload" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" as="style">
+    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" as="style">
+    
+    <!-- CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" rel="stylesheet">
+    <link href="../../css/global.css" rel="stylesheet">
+    <link rel="stylesheet" href="store.css">
 </head>
 <body>
     <!-- Navbar -->
-    <nav class="navbar exo-navbar navbar-expand-lg">
-        <div class="container-fluid">
-            <a class="navbar-brand exo-logo fs-3" href="#">EXOSTORE</a>
+    <nav class="navbar navbar-expand-lg sticky-top">
+        <div class="container-fluid px-4">
+            <a class="navbar-brand d-flex align-items-center" href="../../home/home.html">
+                <i class="fa-solid fa-store me-2"></i>ExoVerce Store
+            </a>
             
-            <div class="d-flex flex-grow-1 mx-4">
-                <div class="input-group">
-                    <input type="text" class="form-control" placeholder="Search builds and components...">
-                    <button class="btn exo-search-btn">
-                        <i class="fas fa-search"></i>
+            <!-- Search Bar -->
+            <div class="navbar-search flex-grow-1 mx-4">
+                <div class="search-container">
+                    <input type="text" class="form-control search-input" placeholder="Search products, components, builds..." id="searchInput">
+                    <button class="btn search-btn" type="button">
+                        <i class="fa-solid fa-search"></i>
                     </button>
                 </div>
             </div>
 
-            <div class="d-flex align-items-center">
-                <button class="btn exo-cart-btn">
-                    <i class="fas fa-shopping-cart fa-lg"></i>
-                    <span class="exo-cart-count">0</span>
-                </button>
+            <div class="navbar-nav d-flex flex-row align-items-center">
+                <a class="nav-link" href="../../home/home.html">
+                    <i class="fa-solid fa-home"></i>
+                </a>
+                <a class="nav-link position-relative" href="cart.html">
+                    <i class="fa-solid fa-shopping-cart"></i>
+                    <span class="cart-badge" id="cartCount">0</span>
+                </a>
+                <a class="nav-link" href="../../profile/profile.html">
+                    <i class="fa-solid fa-user-circle"></i>
+                </a>
             </div>
         </div>
     </nav>
 
-    <!-- Categories Navigation -->
-    <div class="bg-light py-2 border-bottom">
-        <div class="container-fluid d-flex gap-3">
-            <a href="#" class="text-dark text-decoration-none">
-                <i class="fas fa-box me-1"></i>
-                All Products
-            </a>
-            <a href="#" class="text-dark text-decoration-none">
-                <i class="fas fa-users-cog me-1"></i>
-                User Builds
-            </a>
-            <a href="#" class="text-dark text-decoration-none">
-                <i class="fas fa-cube me-1"></i>
-                Ready Builds
-            </a>
-            <a href="#" class="text-dark text-decoration-none">
-                <i class="fas fa-microchip me-1"></i>
-                Components
-            </a>
-        </div>
-    </div>
-
     <!-- Hero Section -->
-    <div class="exo-hero d-flex align-items-center">
-        <div class="container text-white">
-            <h1 class="display-4 fw-bold">Build Your Electronic Universe</h1>
-            <p class="lead">Shop pre-configured systems or create custom builds with individual components</p>
-            <button class="btn btn-warning btn-lg" onclick="page()" >
-                <i class="fas fa-toolbox me-2"></i>
-                Start Building
-            </button>
-        </div>
-    </div>
-
-    <!-- Products Grid -->
-    <div class="container-fluid mt-4">
-        <div class="row row-cols-1 row-cols-md-3 row-cols-lg-4 g-4">
-            <div class="col">
-                <div class="card exo-product-card h-100">
-                    <img src="https://static.todamateria.com.br/upload/sa/te/satelites-artificiais-og.jpg?class=ogImageWide" class="card-img-top exo-product-img" alt="...">
-                    <div class="card-body">
-                        <h5 class="card-title">radio satelite</h5>
-                        <div class="text-warning mb-2">
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="far fa-star"></i>
+    <div class="store-hero">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-6">
+                    <h1 class="hero-title">ExoVerce Marketplace</h1>
+                    <p class="hero-description">Discover amazing builds, sell your creations, and get all the components you need for your electronics projects.</p>
+                    <div class="hero-stats">
+                        <div class="stat-item">
+                            <span class="stat-number">1,247</span>
+                            <span class="stat-label">User Builds</span>
                         </div>
-                        <p class="exo-price">$2999.99</p>
-                        <button class="btn btn-outline-primary w-100 add-to-cart">
-                            <i class="fas fa-cart-plus me-2"></i>
-                            Add to Cart
-                        </button>
+                        <div class="stat-item">
+                            <span class="stat-number">5,000+</span>
+                            <span class="stat-label">Components</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-number">892</span>
+                            <span class="stat-label">Active Sellers</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="hero-image">
+                        <i class="fa-solid fa-microchip"></i>
                     </div>
                 </div>
             </div>
-            
-            <!-- Add more product cards here -->
         </div>
     </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="store.js" > </script>
+    <!-- Store Navigation Tabs -->
+    <div class="store-navigation">
+        <div class="container">
+            <nav class="nav nav-pills nav-justified store-tabs" id="store-nav">
+                <button class="nav-link active" id="own-builds-tab" data-bs-toggle="pill" data-bs-target="#own-builds" type="button">
+                    <i class="fa-solid fa-hammer me-2"></i>My Builds
+                    <span class="tab-badge">5</span>
+                </button>
+                <button class="nav-link" id="public-builds-tab" data-bs-toggle="pill" data-bs-target="#public-builds" type="button">
+                    <i class="fa-solid fa-users me-2"></i>Public Builds
+                    <span class="tab-badge">1.2K</span>
+                </button>
+                <button class="nav-link" id="buy-parts-tab" data-bs-toggle="pill" data-bs-target="#buy-parts" type="button">
+                    <i class="fa-solid fa-microchip me-2"></i>Buy Parts
+                    <span class="tab-badge">5K+</span>
+                </button>
+            </nav>
+        </div>
+    </div>
+
+    <!-- Store Content -->
+    <div class="container">
+        <div class="tab-content store-content" id="store-content">
+            <!-- Own Builds Section -->
+            <div class="tab-pane fade show active" id="own-builds" role="tabpanel">
+                <div class="section-header">
+                    <h2 class="section-title">
+                        <i class="fa-solid fa-hammer me-2"></i>My Builds
+                    </h2>
+                    <p class="section-subtitle">Monetize your workspace projects by selling them to the community</p>
+                    <button class="btn btn-primary" id="createListingBtn" data-bs-toggle="modal" data-bs-target="#createListingModal">
+                        <i class="fa-solid fa-plus me-2"></i>Create New Listing
+                    </button>
+                </div>
+
+                <div class="builds-grid">
+                    <div class="row g-4" id="ownBuildsContainer">
+                        <!-- Own Build Card 1 -->
+                        <div class="col-md-6 col-lg-4">
+                            <div class="build-card own-build">
+                                <div class="build-image">
+                                    <img src="https://via.placeholder.com/400x300" alt="Smart LED Controller">
+                                    <div class="build-status">
+                                        <span class="status-badge active">Active</span>
+                                    </div>
+                                    <div class="build-actions">
+                                        <button class="btn btn-sm btn-outline-light">
+                                            <i class="fa-solid fa-edit"></i>
+                                        </button>
+                                        <button class="btn btn-sm btn-outline-light">
+                                            <i class="fa-solid fa-eye"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="build-info">
+                                    <h4 class="build-title">Smart LED Controller</h4>
+                                    <p class="build-description">IoT-enabled LED strip controller with smartphone app integration</p>
+                                    <div class="build-stats">
+                                        <div class="stat">
+                                            <i class="fa-solid fa-eye"></i>
+                                            <span>245 views</span>
+                                        </div>
+                                        <div class="stat">
+                                            <i class="fa-solid fa-shopping-cart"></i>
+                                            <span>12 sold</span>
+                                        </div>
+                                        <div class="stat">
+                                            <i class="fa-solid fa-star"></i>
+                                            <span>4.8 (23)</span>
+                                        </div>
+                                    </div>
+                                    <div class="build-pricing">
+                                        <span class="price">$89.99</span>
+                                        <span class="earnings">Earned: $1,079.88</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Own Build Card 2 -->
+                        <div class="col-md-6 col-lg-4">
+                            <div class="build-card own-build">
+                                <div class="build-image">
+                                    <img src="https://via.placeholder.com/400x300" alt="Weather Station">
+                                    <div class="build-status">
+                                        <span class="status-badge pending">Pending Review</span>
+                                    </div>
+                                    <div class="build-actions">
+                                        <button class="btn btn-sm btn-outline-light">
+                                            <i class="fa-solid fa-edit"></i>
+                                        </button>
+                                        <button class="btn btn-sm btn-outline-light">
+                                            <i class="fa-solid fa-eye"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="build-info">
+                                    <h4 class="build-title">IoT Weather Station</h4>
+                                    <p class="build-description">Complete weather monitoring with sensors and web dashboard</p>
+                                    <div class="build-stats">
+                                        <div class="stat">
+                                            <i class="fa-solid fa-eye"></i>
+                                            <span>0 views</span>
+                                        </div>
+                                        <div class="stat">
+                                            <i class="fa-solid fa-shopping-cart"></i>
+                                            <span>0 sold</span>
+                                        </div>
+                                        <div class="stat">
+                                            <i class="fa-solid fa-clock"></i>
+                                            <span>In Review</span>
+                                        </div>
+                                    </div>
+                                    <div class="build-pricing">
+                                        <span class="price">$145.00</span>
+                                        <span class="earnings">Earnings: $0.00</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Create New Build Card -->
+                        <div class="col-md-6 col-lg-4">
+                            <div class="build-card create-new">
+                                <div class="create-content">
+                                    <i class="fa-solid fa-plus"></i>
+                                    <h4>List a New Build</h4>
+                                    <p>Turn your workspace projects into profitable products</p>
+                                    <button class="btn btn-primary" id="createListingBtn2" data-bs-toggle="modal" data-bs-target="#createListingModal">
+                                        Get Started
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Public Builds Section -->
+            <div class="tab-pane fade" id="public-builds" role="tabpanel">
+                <div class="section-header">
+                    <h2 class="section-title">
+                        <i class="fa-solid fa-users me-2"></i>Public Builds
+                    </h2>
+                    <p class="section-subtitle">Discover amazing builds created by the ExoVerce community</p>
+                    
+                    <!-- Filters -->
+                    <div class="build-filters">
+                        <div class="filter-group">
+                            <label>Category</label>
+                            <select class="form-select">
+                                <option>All Categories</option>
+                                <option>IoT & Smart Home</option>
+                                <option>Robotics</option>
+                                <option>Audio & Sound</option>
+                                <option>Automotive</option>
+                                <option>Wearables</option>
+                            </select>
+                        </div>
+                        <div class="filter-group">
+                            <label>Price Range</label>
+                            <select class="form-select">
+                                <option>Any Price</option>
+                                <option>Under $50</option>
+                                <option>$50 - $100</option>
+                                <option>$100 - $200</option>
+                                <option>$200+</option>
+                            </select>
+                        </div>
+                        <div class="filter-group">
+                            <label>Sort By</label>
+                            <select class="form-select">
+                                <option>Most Popular</option>
+                                <option>Newest</option>
+                                <option>Price: Low to High</option>
+                                <option>Price: High to Low</option>
+                                <option>Highest Rated</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="builds-grid">
+                    <div class="row g-4" id="publicBuildsContainer">
+                        <!-- Public Build Card 1 -->
+                        <div class="col-md-6 col-lg-4">
+                            <div class="build-card public-build">
+                                <div class="build-image">
+                                    <img src="https://via.placeholder.com/400x300" alt="Autonomous Robot Car">
+                                    <div class="build-badge">
+                                        <span class="badge bg-success">Best Seller</span>
+                                    </div>
+                                    <div class="wishlist-btn">
+                                        <button class="btn btn-sm btn-outline-light">
+                                            <i class="fa-regular fa-heart"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="build-info">
+                                    <div class="creator-info">
+                                        <img src="https://via.placeholder.com/30x30" alt="Creator">
+                                        <span>TechMaker_Pro</span>
+                                        <div class="creator-badge">
+                                            <i class="fa-solid fa-crown"></i>
+                                        </div>
+                                    </div>
+                                    <h4 class="build-title">Autonomous Robot Car</h4>
+                                    <p class="build-description">Self-driving car with obstacle avoidance and remote control</p>
+                                    <div class="build-stats">
+                                        <div class="rating">
+                                            <i class="fa-solid fa-star"></i>
+                                            <span>4.9 (156 reviews)</span>
+                                        </div>
+                                        <div class="sold-count">
+                                            <span>89 sold</span>
+                                        </div>
+                                    </div>
+                                    <div class="build-pricing">
+                                        <span class="price">$199.99</span>
+                                        <span class="original-price">$249.99</span>
+                                        <button class="btn btn-primary add-to-cart">
+                                            <i class="fa-solid fa-cart-plus me-2"></i>Add to Cart
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Public Build Card 2 -->
+                        <div class="col-md-6 col-lg-4">
+                            <div class="build-card public-build">
+                                <div class="build-image">
+                                    <img src="https://via.placeholder.com/400x300" alt="Smart Security System">
+                                    <div class="build-badge">
+                                        <span class="badge bg-info">New</span>
+                                    </div>
+                                    <div class="wishlist-btn">
+                                        <button class="btn btn-sm btn-outline-light">
+                                            <i class="fa-regular fa-heart"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="build-info">
+                                    <div class="creator-info">
+                                        <img src="https://via.placeholder.com/30x30" alt="Creator">
+                                        <span>SecurityExpert</span>
+                                    </div>
+                                    <h4 class="build-title">Smart Security System</h4>
+                                    <p class="build-description">Complete home security with cameras and mobile alerts</p>
+                                    <div class="build-stats">
+                                        <div class="rating">
+                                            <i class="fa-solid fa-star"></i>
+                                            <span>4.7 (43 reviews)</span>
+                                        </div>
+                                        <div class="sold-count">
+                                            <span>23 sold</span>
+                                        </div>
+                                    </div>
+                                    <div class="build-pricing">
+                                        <span class="price">$299.99</span>
+                                        <button class="btn btn-primary add-to-cart">
+                                            <i class="fa-solid fa-cart-plus me-2"></i>Add to Cart
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- More public build cards would go here -->
+                    </div>
+                </div>
+
+                <!-- Load More -->
+                <div class="text-center mt-4">
+                    <button class="btn btn-outline-primary" id="loadMoreBuilds">
+                        <i class="fa-solid fa-plus me-2"></i>Load More Builds
+                    </button>
+                </div>
+            </div>
+
+            <!-- Buy Parts Section -->
+            <div class="tab-pane fade" id="buy-parts" role="tabpanel">
+                <div class="section-header">
+                    <h2 class="section-title">
+                        <i class="fa-solid fa-microchip me-2"></i>Buy Parts
+                    </h2>
+                    <p class="section-subtitle">Get all the components you need for your projects with smart recommendations</p>
+                    
+                    <!-- Project Parts Finder -->
+                    <div class="project-parts-finder">
+                        <h4>Find Parts for Your Project</h4>
+                        <div class="d-flex gap-2">
+                            <select class="form-select flex-grow-1" id="projectSelectFinder">
+                                <option>Select a project from your repositories</option>
+                                <option>Smart LED Controller</option>
+                                <option>IoT Weather Station</option>
+                                <option>Autonomous Rover</option>
+                                <option>Home Security System</option>
+                            </select>
+                            <button class="btn btn-success" id="findPartsBtn">
+                                <i class="fa-solid fa-magic me-2"></i>Find Parts
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Parts Categories -->
+                <div class="parts-categories">
+                    <h4>Browse by Category</h4>
+                    <div class="category-grid">
+                        <div class="category-card">
+                            <i class="fa-solid fa-microchip"></i>
+                            <span>Microcontrollers</span>
+                            <div class="item-count">234 items</div>
+                        </div>
+                        <div class="category-card">
+                            <i class="fa-solid fa-plug"></i>
+                            <span>Sensors</span>
+                            <div class="item-count">567 items</div>
+                        </div>
+                        <div class="category-card">
+                            <i class="fa-solid fa-bolt"></i>
+                            <span>Power & Batteries</span>
+                            <div class="item-count">123 items</div>
+                        </div>
+                        <div class="category-card">
+                            <i class="fa-solid fa-wifi"></i>
+                            <span>Communication</span>
+                            <div class="item-count">89 items</div>
+                        </div>
+                        <div class="category-card">
+                            <i class="fa-solid fa-display"></i>
+                            <span>Displays</span>
+                            <div class="item-count">76 items</div>
+                        </div>
+                        <div class="category-card">
+                            <i class="fa-solid fa-screwdriver-wrench"></i>
+                            <span>Tools & Equipment</span>
+                            <div class="item-count">145 items</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Featured Parts -->
+                <div class="featured-parts">
+                    <h4>Popular Components</h4>
+                    <div class="row g-4">
+                        <!-- Component Card 1 -->
+                        <div class="col-md-6 col-lg-3">
+                            <div class="component-card">
+                                <div class="component-image">
+                                    <img src="https://via.placeholder.com/200x150" alt="Arduino Uno R3">
+                                    <div class="quick-add">
+                                        <button class="btn btn-sm btn-primary">
+                                            <i class="fa-solid fa-plus"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="component-info">
+                                    <h5 class="component-name">Arduino Uno R3</h5>
+                                    <div class="component-rating">
+                                        <div class="stars">
+                                            <i class="fa-solid fa-star"></i>
+                                            <i class="fa-solid fa-star"></i>
+                                            <i class="fa-solid fa-star"></i>
+                                            <i class="fa-solid fa-star"></i>
+                                            <i class="fa-solid fa-star"></i>
+                                        </div>
+                                        <span>(2,456)</span>
+                                    </div>
+                                    <div class="component-specs">
+                                        <span class="spec">ATmega328P</span>
+                                        <span class="spec">14 Digital I/O</span>
+                                    </div>
+                                    <div class="component-pricing">
+                                        <span class="price">$24.99</span>
+                                        <span class="stock">In Stock</span>
+                                    </div>
+                                    <button class="btn btn-outline-primary w-100 add-to-cart">
+                                        Add to Cart
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Component Card 2 -->
+                        <div class="col-md-6 col-lg-3">
+                            <div class="component-card">
+                                <div class="component-image">
+                                    <img src="https://via.placeholder.com/200x150" alt="ESP32 DevKit">
+                                    <div class="quick-add">
+                                        <button class="btn btn-sm btn-primary">
+                                            <i class="fa-solid fa-plus"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="component-info">
+                                    <h5 class="component-name">ESP32 DevKit V1</h5>
+                                    <div class="component-rating">
+                                        <div class="stars">
+                                            <i class="fa-solid fa-star"></i>
+                                            <i class="fa-solid fa-star"></i>
+                                            <i class="fa-solid fa-star"></i>
+                                            <i class="fa-solid fa-star"></i>
+                                            <i class="fa-regular fa-star"></i>
+                                        </div>
+                                        <span>(1,823)</span>
+                                    </div>
+                                    <div class="component-specs">
+                                        <span class="spec">WiFi + Bluetooth</span>
+                                        <span class="spec">Dual Core</span>
+                                    </div>
+                                    <div class="component-pricing">
+                                        <span class="price">$12.99</span>
+                                        <span class="stock">In Stock</span>
+                                    </div>
+                                    <button class="btn btn-outline-primary w-100 add-to-cart">
+                                        Add to Cart
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- More component cards would go here -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Create Listing Modal -->
+    <div class="modal fade" id="createListingModal" tabindex="-1" aria-labelledby="createListingModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="createListingModalLabel">
+                        <i class="fa-solid fa-plus me-2"></i>Create New Listing
+                    </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="createListingForm">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label for="projectSelect" class="form-label">Select Project from Workspace</label>
+                                    <select class="form-select" id="projectSelect" required>
+                                        <option value="">Choose a project...</option>
+                                        <option value="smart-led">Smart LED Controller</option>
+                                        <option value="weather-station">IoT Weather Station</option>
+                                        <option value="autonomous-rover">Autonomous Rover</option>
+                                        <option value="security-system">Home Security System</option>
+                                    </select>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="listingTitle" class="form-label">Listing Title</label>
+                                    <input type="text" class="form-control" id="listingTitle" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="listingPrice" class="form-label">Price ($)</label>
+                                    <input type="number" class="form-control" id="listingPrice" min="0" step="0.01" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="listingCategory" class="form-label">Category</label>
+                                    <select class="form-select" id="listingCategory" required>
+                                        <option value="">Select category...</option>
+                                        <option value="iot">IoT & Smart Home</option>
+                                        <option value="robotics">Robotics</option>
+                                        <option value="audio">Audio & Sound</option>
+                                        <option value="automotive">Automotive</option>
+                                        <option value="wearables">Wearables</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label for="listingDescription" class="form-label">Description</label>
+                                    <textarea class="form-control" id="listingDescription" rows="4" required></textarea>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="listingImages" class="form-label">Project Images</label>
+                                    <input type="file" class="form-control" id="listingImages" multiple accept="image/*">
+                                    <div class="form-text">Upload images from your project workspace</div>
+                                </div>
+                                <div class="mb-3">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="includeCode">
+                                        <label class="form-check-label" for="includeCode">
+                                            Include source code
+                                        </label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="includeSchematic">
+                                        <label class="form-check-label" for="includeSchematic">
+                                            Include circuit schematics
+                                        </label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="includeBOM">
+                                        <label class="form-check-label" for="includeBOM">
+                                            Include bill of materials
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-primary" id="submitListing">
+                        <i class="fa-solid fa-rocket me-2"></i>Create Listing
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Project Parts Results Modal -->
+    <div class="modal fade" id="projectPartsModal" tabindex="-1" aria-labelledby="projectPartsModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-xl">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="projectPartsModalLabel">
+                        <i class="fa-solid fa-magic me-2"></i>Parts for Your Project
+                    </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="alert alert-info">
+                        <i class="fa-solid fa-lightbulb me-2"></i>
+                        Based on your project's code and schematics, we've found the following components you'll need:
+                    </div>
+                    <div id="projectPartsContainer">
+                        <!-- Dynamic content will be loaded here -->
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-success" id="addAllToCart">
+                        <i class="fa-solid fa-cart-plus me-2"></i>Add All to Cart
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="store.js"></script>
 </body>
 </html>

@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Achievements - ExoVerce</title>
+    <meta name="description" content="ExoVerce Achievements - Track your progress and earn rewards">
+    
+    <!-- Preload critical resources -->
+    <link rel="preload" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" as="style">
+    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" as="style">
+    <link rel="preload" href="../css/global.css" as="style">
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <link rel="stylesheet" href="../css/global.css">
+    <link rel="stylesheet" href="achievements.css">
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg sticky-top">
+        <div class="container-fluid px-4">
+            <a class="navbar-brand d-flex align-items-center" href="../index.html">
+                <i class="fa-solid fa-lightbulb me-2"></i>ExoVerce
+            </a>
+
+            <div class="ms-auto d-flex align-items-center text-white">
+                <div class="status-indicators d-none d-lg-flex">
+                    <div class="status-indicator">
+                        <i class="fa-solid fa-database"></i> Storage: <span class="stat-value">60%</span>
+                    </div>
+                    <div class="status-indicator">
+                        <i class="fa-solid fa-clock"></i> Work Hr: <span class="stat-value">80%</span>
+                    </div>
+                </div>
+                
+                <button class="navbar-toggler ms-3" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+            </div>
+
+            <div class="collapse navbar-collapse justify-content-end" id="navbarNav"> 
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a href="../repository/repository.html" class="nav-link"><i class="fa-solid fa-vial-virus"></i> Repositories</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="../achivements/achievements.html" class="nav-link active"><i class="fa-solid fa-trophy"></i> Achievements</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="../pages/updates/update.html" class="nav-link"><i class="fa-regular fa-newspaper"></i> ExoSocial</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="../pages/tutorials/tutorial.html" class="nav-link"><i class="fa-solid fa-film"></i> ExoTutor</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="../pages/store/store.html" class="nav-link"><i class="fa-solid fa-bag-shopping"></i> Store</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="../chat/chat.html" class="nav-link"><i class="fa-solid fa-comments"></i> Chat</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="../profile/profile.html" class="nav-link"><i class="fa-solid fa-user"></i> Profile</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <div class="hero-content">
+            <h1 class="hero-title">Your Achievements</h1>
+            <p class="hero-subtitle">Track your progress, earn badges, and unlock exciting opportunities</p>
+            <div class="achievement-stats">
+                <div class="stat-item">
+                    <div class="stat-number" id="totalBadges">0</div>
+                    <div class="stat-label">Badges Earned</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number" id="totalCertificates">0</div>
+                    <div class="stat-label">Certificates</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number" id="totalPoints">0</div>
+                    <div class="stat-label">Points</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number" id="currentLevel">1</div>
+                    <div class="stat-label">Level</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Progress Section -->
+    <section class="progress-section">
+        <div class="container">
+            <h2 class="section-title">Your Progress</h2>
+            <div class="progress-overview">
+                <div class="level-progress">
+                    <h3>Level Progress</h3>
+                    <div class="level-bar">
+                        <div class="level-fill" id="levelProgress"></div>
+                        <span class="level-text" id="levelText">Level 1 - Beginner</span>
+                    </div>
+                    <p class="next-level" id="nextLevelText">350 points to Level 2</p>
+                </div>
+                <div class="streak-counter">
+                    <i class="fas fa-fire streak-icon"></i>
+                    <div class="streak-info">
+                        <h3>Learning Streak</h3>
+                        <div class="streak-number" id="streakDays">0</div>
+                        <p>Days in a row</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Achievement Categories -->
+    <section class="achievements-section">
+        <div class="container">
+            <div class="category-tabs">
+                <button class="tab-btn active" data-category="all">All</button>
+                <button class="tab-btn" data-category="badges">Badges</button>
+                <button class="tab-btn" data-category="certificates">Certificates</button>
+                <button class="tab-btn" data-category="internships">Internships</button>
+                <button class="tab-btn" data-category="payments">Payments</button>
+                <button class="tab-btn" data-category="special">Special</button>
+            </div>
+
+            <!-- Badges Section -->
+            <div class="achievement-category" id="badges-section">
+                <h2 class="category-title">
+                    <i class="fas fa-medal"></i>
+                    Badges
+                </h2>
+                <div class="achievements-grid" id="badgesGrid">
+                    <!-- Badges will be dynamically generated -->
+                </div>
+            </div>
+
+            <!-- Certificates Section -->
+            <div class="achievement-category" id="certificates-section">
+                <h2 class="category-title">
+                    <i class="fas fa-certificate"></i>
+                    Certificates
+                </h2>
+                <div class="certificates-grid" id="certificatesGrid">
+                    <!-- Certificates will be dynamically generated -->
+                </div>
+            </div>
+
+            <!-- Internships Section -->
+            <div class="achievement-category" id="internships-section">
+                <h2 class="category-title">
+                    <i class="fas fa-briefcase"></i>
+                    Internship Opportunities
+                </h2>
+                <div class="internships-grid" id="internshipsGrid">
+                    <!-- Internships will be dynamically generated -->
+                </div>
+            </div>
+
+            <!-- Payments Section -->
+            <div class="achievement-category" id="payments-section">
+                <h2 class="category-title">
+                    <i class="fas fa-dollar-sign"></i>
+                    Payment Milestones
+                </h2>
+                <div class="payments-grid" id="paymentsGrid">
+                    <!-- Payment milestones will be dynamically generated -->
+                </div>
+            </div>
+
+            <!-- Special Achievements -->
+            <div class="achievement-category" id="special-section">
+                <h2 class="category-title">
+                    <i class="fas fa-trophy"></i>
+                    Special Achievements
+                </h2>
+                <div class="special-grid" id="specialGrid">
+                    <!-- Special achievements will be dynamically generated -->
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Achievement Details Modal -->
+    <div class="modal" id="achievementModal">
+        <div class="modal-content">
+            <span class="close" id="closeModal">&times;</span>
+            <div class="modal-header">
+                <div class="achievement-icon" id="modalIcon"></div>
+                <h2 id="modalTitle"></h2>
+                <div class="achievement-rarity" id="modalRarity"></div>
+            </div>
+            <div class="modal-body">
+                <p id="modalDescription"></p>
+                <div class="achievement-details">
+                    <div class="detail-item">
+                        <strong>Earned:</strong>
+                        <span id="modalEarnedDate"></span>
+                    </div>
+                    <div class="detail-item">
+                        <strong>Points:</strong>
+                        <span id="modalPoints"></span>
+                    </div>
+                    <div class="detail-item" id="modalRequirementsSection">
+                        <strong>Requirements:</strong>
+                        <ul id="modalRequirements"></ul>
+                    </div>
+                </div>
+                <div class="share-achievement">
+                    <h3>Share Your Achievement</h3>
+                    <div class="share-buttons">
+                        <button class="share-btn twitter" onclick="shareToTwitter()">
+                            <i class="fab fa-twitter"></i> Twitter
+                        </button>
+                        <button class="share-btn linkedin" onclick="shareToLinkedIn()">
+                            <i class="fab fa-linkedin"></i> LinkedIn
+                        </button>
+                        <button class="share-btn copy" onclick="copyAchievementLink()">
+                            <i class="fas fa-link"></i> Copy Link
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Certificate Viewer Modal -->
+    <div class="modal" id="certificateModal">
+        <div class="modal-content certificate-viewer">
+            <span class="close" id="closeCertificateModal">&times;</span>
+            <div class="certificate-container">
+                <div class="certificate" id="certificateContent">
+                    <!-- Certificate content will be generated here -->
+                </div>
+                <div class="certificate-actions">
+                    <button class="btn btn-primary" onclick="downloadCertificate()">
+                        <i class="fas fa-download"></i> Download PDF
+                    </button>
+                    <button class="btn btn-secondary" onclick="verifyCertificate()">
+                        <i class="fas fa-shield-alt"></i> Verify Certificate
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="achievements.js"></script>
+</body>
+</html>

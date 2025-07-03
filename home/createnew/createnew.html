@@ -3,19 +3,631 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Create New Laboratory</title>
+    <title>ExoVerce - Create New Lab</title>
+    
+    <!-- Preload critical resources -->
+    <link rel="preload" href="../../css/global.css" as="style">
+    <link rel="preload" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" as="style">
+    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" as="style">
+    
+    <!-- CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" rel="stylesheet">
+    <link href="../../css/global.css" rel="stylesheet">
+    
+    <style>
+        body {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .create-lab-container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: var(--spacing-3xl);
+        }
+
+        .lab-preview {
+            background: var(--light-color);
+            border-radius: var(--radius-lg);
+            padding: var(--spacing-xl);
+            margin-bottom: var(--spacing-xl);
+            box-shadow: var(--shadow-lg);
+            border: 3px dashed var(--gray-300);
+            text-align: center;
+            transition: all var(--transition-normal);
+        }
+
+        .lab-preview:hover {
+            border-color: var(--primary-color);
+            transform: translateY(-5px);
+        }
+
+        .lab-type-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: var(--spacing-lg);
+            margin-bottom: var(--spacing-xl);
+        }
+
+        .lab-type-card {
+            background: var(--light-color);
+            border-radius: var(--radius-lg);
+            padding: var(--spacing-xl);
+            text-align: center;
+            cursor: pointer;
+            transition: all var(--transition-normal);
+            border: 2px solid var(--gray-300);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .lab-type-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: var(--gradient-primary);
+            transform: scaleX(0);
+            transition: transform var(--transition-normal);
+        }
+
+        .lab-type-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-xl);
+            border-color: var(--primary-color);
+        }
+
+        .lab-type-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .lab-type-card.selected {
+            background: var(--gradient-primary);
+            color: var(--light-color);
+            border-color: var(--primary-dark);
+            transform: translateY(-5px);
+        }
+
+        .lab-type-card.selected::before {
+            transform: scaleX(1);
+        }
+
+        .lab-type-icon {
+            font-size: 3rem;
+            margin-bottom: var(--spacing-lg);
+            color: var(--primary-color);
+        }
+
+        .lab-type-card.selected .lab-type-icon {
+            color: var(--light-color);
+        }
+
+        .privacy-options {
+            display: flex;
+            gap: var(--spacing-lg);
+            margin-bottom: var(--spacing-xl);
+        }
+
+        .privacy-card {
+            flex: 1;
+            background: var(--light-color);
+            border-radius: var(--radius-lg);
+            padding: var(--spacing-xl);
+            text-align: center;
+            cursor: pointer;
+            transition: all var(--transition-normal);
+            border: 2px solid var(--gray-300);
+        }
+
+        .privacy-card:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+            border-color: var(--primary-color);
+        }
+
+        .privacy-card.selected {
+            background: var(--gradient-primary);
+            color: var(--light-color);
+            border-color: var(--primary-dark);
+        }
+
+        .form-floating label {
+            color: var(--gray-600);
+        }
+
+        .form-floating .form-control:focus ~ label {
+            color: var(--primary-color);
+        }
+
+        .create-actions {
+            display: flex;
+            gap: var(--spacing-lg);
+            justify-content: center;
+            margin-top: var(--spacing-3xl);
+        }
+
+        .btn-create {
+            padding: var(--spacing-lg) var(--spacing-3xl);
+            font-size: var(--font-size-lg);
+            font-weight: var(--font-weight-semibold);
+            border-radius: var(--radius-xl);
+        }
+
+        .progress-indicator {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: var(--spacing-3xl);
+        }
+
+        .step {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: var(--gray-300);
+            color: var(--gray-600);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: var(--font-weight-bold);
+            margin: 0 var(--spacing-md);
+            position: relative;
+        }
+
+        .step.active {
+            background: var(--primary-color);
+            color: var(--light-color);
+        }
+
+        .step.completed {
+            background: var(--success-color);
+            color: var(--light-color);
+        }
+
+        .step::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 100%;
+            width: 60px;
+            height: 2px;
+            background: var(--gray-300);
+            z-index: -1;
+        }
+
+        .step:last-child::after {
+            display: none;
+        }
+
+        .step.completed::after {
+            background: var(--success-color);
+        }
+
+        @media (max-width: 768px) {
+            .create-lab-container {
+                padding: var(--spacing-lg);
+            }
+            
+            .privacy-options {
+                flex-direction: column;
+            }
+            
+            .create-actions {
+                flex-direction: column;
+            }
+            
+            .lab-type-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
 </head>
 <body>
-    <div class="h1">Create New Laboratory</div>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg">
+        <div class="container">
+            <a class="navbar-brand" href="../home.html">
+                <i class="fas fa-rocket me-2"></i>
+                ExoVerce
+            </a>
+            <nav aria-label="breadcrumb" class="ms-auto">
+                <ol class="breadcrumb mb-0">
+                    <li class="breadcrumb-item"><a href="../home.html" class="text-white-50">Home</a></li>
+                    <li class="breadcrumb-item active text-white">Create Lab</li>
+                </ol>
+            </nav>
+        </div>
+    </nav>
 
-    <form>
-<h3 class="name">Enter Name Of repository : </h3>
-<h3 class="discription">Enter the discription :</h3>
-<h3 class="type">Privacy</h3>
-<button class="btn">Private</button>
-<button class="btn">Public</button>
+    <!-- Main Content -->
+    <div class="create-lab-container flex-grow-1">
+        <!-- Progress Indicator -->
+        <div class="progress-indicator">
+            <div class="step active" id="step1">1</div>
+            <div class="step" id="step2">2</div>
+            <div class="step" id="step3">3</div>
+        </div>
 
-</form>
-<button class="create">create</button>
+        <!-- Header -->
+        <div class="text-center mb-5">
+            <h1 class="text-gradient mb-3">
+                <i class="fas fa-flask me-3"></i>
+                Create New Laboratory
+            </h1>
+            <p class="lead text-muted">Build your custom learning environment with our interactive lab creator</p>
+        </div>
+
+        <!-- Step 1: Lab Type Selection -->
+        <div class="step-content" id="stepContent1">
+            <h3 class="mb-4 text-center">Choose Lab Type</h3>
+            <div class="lab-type-grid">
+                <div class="lab-type-card" data-type="electronics" onclick="selectLabType('electronics')">
+                    <div class="lab-type-icon">
+                        <i class="fas fa-microchip"></i>
+                    </div>
+                    <h5 class="mb-3">Electronics Lab</h5>
+                    <p class="text-muted">Create circuits, work with components, and learn electronics</p>
+                </div>
+
+                <div class="lab-type-card" data-type="programming" onclick="selectLabType('programming')">
+                    <div class="lab-type-icon">
+                        <i class="fas fa-code"></i>
+                    </div>
+                    <h5 class="mb-3">Programming Lab</h5>
+                    <p class="text-muted">Code in various languages with interactive environments</p>
+                </div>
+
+                <div class="lab-type-card" data-type="ai" onclick="selectLabType('ai')">
+                    <div class="lab-type-icon">
+                        <i class="fas fa-brain"></i>
+                    </div>
+                    <h5 class="mb-3">AI/ML Lab</h5>
+                    <p class="text-muted">Experiment with artificial intelligence and machine learning</p>
+                </div>
+
+                <div class="lab-type-card" data-type="robotics" onclick="selectLabType('robotics')">
+                    <div class="lab-type-icon">
+                        <i class="fas fa-robot"></i>
+                    </div>
+                    <h5 class="mb-3">Robotics Lab</h5>
+                    <p class="text-muted">Control robots and learn automation concepts</p>
+                </div>
+
+                <div class="lab-type-card" data-type="chemistry" onclick="selectLabType('chemistry')">
+                    <div class="lab-type-icon">
+                        <i class="fas fa-flask"></i>
+                    </div>
+                    <h5 class="mb-3">Chemistry Lab</h5>
+                    <p class="text-muted">Virtual chemistry experiments and simulations</p>
+                </div>
+
+                <div class="lab-type-card" data-type="physics" onclick="selectLabType('physics')">
+                    <div class="lab-type-icon">
+                        <i class="fas fa-atom"></i>
+                    </div>
+                    <h5 class="mb-3">Physics Lab</h5>
+                    <p class="text-muted">Physics simulations and interactive experiments</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Step 2: Lab Configuration -->
+        <div class="step-content d-none" id="stepContent2">
+            <h3 class="mb-4 text-center">Configure Your Lab</h3>
+            
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-floating mb-4">
+                        <input type="text" class="form-control" id="labName" placeholder="Lab Name" required>
+                        <label for="labName">
+                            <i class="fas fa-tag me-2"></i>
+                            Lab Name
+                        </label>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-floating mb-4">
+                        <select class="form-select" id="difficulty">
+                            <option value="beginner">Beginner</option>
+                            <option value="intermediate">Intermediate</option>
+                            <option value="advanced">Advanced</option>
+                        </select>
+                        <label for="difficulty">
+                            <i class="fas fa-layer-group me-2"></i>
+                            Difficulty Level
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-floating mb-4">
+                <textarea class="form-control" id="labDescription" placeholder="Description" style="height: 120px" required></textarea>
+                <label for="labDescription">
+                    <i class="fas fa-align-left me-2"></i>
+                    Lab Description
+                </label>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-floating mb-4">
+                        <input type="number" class="form-control" id="estimatedTime" placeholder="Estimated Time" min="1" max="480" value="60">
+                        <label for="estimatedTime">
+                            <i class="fas fa-clock me-2"></i>
+                            Estimated Time (minutes)
+                        </label>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-floating mb-4">
+                        <select class="form-select" id="category">
+                            <option value="basic">Basic Concepts</option>
+                            <option value="intermediate">Intermediate Projects</option>
+                            <option value="advanced">Advanced Applications</option>
+                            <option value="research">Research & Development</option>
+                        </select>
+                        <label for="category">
+                            <i class="fas fa-folder me-2"></i>
+                            Category
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Step 3: Privacy Settings -->
+        <div class="step-content d-none" id="stepContent3">
+            <h3 class="mb-4 text-center">Privacy & Sharing</h3>
+            
+            <div class="privacy-options">
+                <div class="privacy-card" data-privacy="private" onclick="selectPrivacy('private')">
+                    <div class="mb-3">
+                        <i class="fas fa-lock" style="font-size: 2rem; color: var(--warning-color);"></i>
+                    </div>
+                    <h5 class="mb-3">Private Lab</h5>
+                    <p class="text-muted">Only you can access this lab. Perfect for personal projects and learning.</p>
+                    <ul class="list-unstyled text-start mt-3">
+                        <li><i class="fas fa-check text-success me-2"></i>Personal access only</li>
+                        <li><i class="fas fa-check text-success me-2"></i>Not searchable</li>
+                        <li><i class="fas fa-check text-success me-2"></i>Private progress tracking</li>
+                    </ul>
+                </div>
+
+                <div class="privacy-card" data-privacy="public" onclick="selectPrivacy('public')">
+                    <div class="mb-3">
+                        <i class="fas fa-globe" style="font-size: 2rem; color: var(--success-color);"></i>
+                    </div>
+                    <h5 class="mb-3">Public Lab</h5>
+                    <p class="text-muted">Share with the community. Others can discover and learn from your lab.</p>
+                    <ul class="list-unstyled text-start mt-3">
+                        <li><i class="fas fa-check text-success me-2"></i>Community sharing</li>
+                        <li><i class="fas fa-check text-success me-2"></i>Searchable content</li>
+                        <li><i class="fas fa-check text-success me-2"></i>Collaboration features</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Lab Preview -->
+            <div class="lab-preview">
+                <div class="mb-3">
+                    <i class="fas fa-eye" style="font-size: 2rem; color: var(--info-color);"></i>
+                </div>
+                <h5 class="mb-3">Lab Preview</h5>
+                <div id="labPreviewContent">
+                    <p class="text-muted">Configure your lab details to see a preview here.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Navigation Buttons -->
+        <div class="create-actions">
+            <button class="btn btn-secondary btn-create d-none" id="prevBtn" onclick="prevStep()">
+                <i class="fas fa-arrow-left me-2"></i>
+                Previous
+            </button>
+            <button class="btn btn-primary btn-create" id="nextBtn" onclick="nextStep()">
+                Next
+                <i class="fas fa-arrow-right ms-2"></i>
+            </button>
+            <button class="btn btn-success btn-create d-none" id="createBtn" onclick="createLab()">
+                <i class="fas fa-plus me-2"></i>
+                Create Lab
+            </button>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <script>
+        let currentStep = 1;
+        let labConfig = {
+            type: '',
+            name: '',
+            description: '',
+            privacy: '',
+            difficulty: 'beginner',
+            estimatedTime: 60,
+            category: 'basic'
+        };
+
+        function selectLabType(type) {
+            // Remove previous selection
+            document.querySelectorAll('.lab-type-card').forEach(card => {
+                card.classList.remove('selected');
+            });
+            
+            // Add selection to clicked card
+            document.querySelector(`[data-type="${type}"]`).classList.add('selected');
+            
+            // Update config
+            labConfig.type = type;
+            
+            // Enable next button
+            document.getElementById('nextBtn').disabled = false;
+        }
+
+        function selectPrivacy(privacy) {
+            // Remove previous selection
+            document.querySelectorAll('.privacy-card').forEach(card => {
+                card.classList.remove('selected');
+            });
+            
+            // Add selection to clicked card
+            document.querySelector(`[data-privacy="${privacy}"]`).classList.add('selected');
+            
+            // Update config
+            labConfig.privacy = privacy;
+            
+            updateLabPreview();
+        }
+
+        function updateLabPreview() {
+            const previewContent = document.getElementById('labPreviewContent');
+            const name = document.getElementById('labName')?.value || 'Untitled Lab';
+            const description = document.getElementById('labDescription')?.value || 'No description provided';
+            const difficulty = document.getElementById('difficulty')?.value || 'beginner';
+            const time = document.getElementById('estimatedTime')?.value || '60';
+            
+            const typeIcons = {
+                electronics: 'fa-microchip',
+                programming: 'fa-code',
+                ai: 'fa-brain',
+                robotics: 'fa-robot',
+                chemistry: 'fa-flask',
+                physics: 'fa-atom'
+            };
+
+            previewContent.innerHTML = `
+                <div class="text-start">
+                    <h6 class="d-flex align-items-center mb-2">
+                        <i class="fas ${typeIcons[labConfig.type] || 'fa-flask'} me-2 text-primary"></i>
+                        ${name}
+                        <span class="badge bg-${labConfig.privacy === 'private' ? 'warning' : 'success'} ms-2">
+                            <i class="fas fa-${labConfig.privacy === 'private' ? 'lock' : 'globe'} me-1"></i>
+                            ${labConfig.privacy}
+                        </span>
+                    </h6>
+                    <p class="text-muted mb-2">${description}</p>
+                    <div class="d-flex gap-3 justify-content-center">
+                        <small class="badge bg-primary">
+                            <i class="fas fa-layer-group me-1"></i>
+                            ${difficulty}
+                        </small>
+                        <small class="badge bg-info">
+                            <i class="fas fa-clock me-1"></i>
+                            ${time} min
+                        </small>
+                    </div>
+                </div>
+            `;
+        }
+
+        function nextStep() {
+            if (currentStep === 1 && !labConfig.type) {
+                alert('Please select a lab type first.');
+                return;
+            }
+            
+            if (currentStep === 2) {
+                // Validate form
+                const name = document.getElementById('labName').value;
+                const description = document.getElementById('labDescription').value;
+                
+                if (!name || !description) {
+                    alert('Please fill in all required fields.');
+                    return;
+                }
+                
+                // Update config
+                labConfig.name = name;
+                labConfig.description = description;
+                labConfig.difficulty = document.getElementById('difficulty').value;
+                labConfig.estimatedTime = document.getElementById('estimatedTime').value;
+                labConfig.category = document.getElementById('category').value;
+            }
+            
+            if (currentStep < 3) {
+                currentStep++;
+                updateStepDisplay();
+            }
+        }
+
+        function prevStep() {
+            if (currentStep > 1) {
+                currentStep--;
+                updateStepDisplay();
+            }
+        }
+
+        function updateStepDisplay() {
+            // Hide all step contents
+            document.querySelectorAll('.step-content').forEach(content => {
+                content.classList.add('d-none');
+            });
+            
+            // Show current step content
+            document.getElementById(`stepContent${currentStep}`).classList.remove('d-none');
+            
+            // Update step indicators
+            document.querySelectorAll('.step').forEach((step, index) => {
+                step.classList.remove('active', 'completed');
+                if (index + 1 < currentStep) {
+                    step.classList.add('completed');
+                } else if (index + 1 === currentStep) {
+                    step.classList.add('active');
+                }
+            });
+            
+            // Update buttons
+            const prevBtn = document.getElementById('prevBtn');
+            const nextBtn = document.getElementById('nextBtn');
+            const createBtn = document.getElementById('createBtn');
+            
+            prevBtn.classList.toggle('d-none', currentStep === 1);
+            nextBtn.classList.toggle('d-none', currentStep === 3);
+            createBtn.classList.toggle('d-none', currentStep !== 3);
+            
+            if (currentStep === 3) {
+                updateLabPreview();
+            }
+        }
+
+        function createLab() {
+            if (!labConfig.privacy) {
+                alert('Please select privacy settings for your lab.');
+                return;
+            }
+            
+            // Show loading state
+            const createBtn = document.getElementById('createBtn');
+            const originalText = createBtn.innerHTML;
+            createBtn.innerHTML = '<i class="fas fa-spinner fa-spin me-2"></i>Creating Lab...';
+            createBtn.disabled = true;
+            
+            // Simulate lab creation
+            setTimeout(() => {
+                alert(`Lab "${labConfig.name}" created successfully!`);
+                // Redirect to lab or labs page
+                window.location.href = '../../labs/labtem.html';
+            }, 2000);
+        }
+
+        // Initialize form listeners
+        document.addEventListener('DOMContentLoaded', function() {
+            // Add event listeners for real-time preview updates
+            ['labName', 'labDescription', 'difficulty', 'estimatedTime', 'category'].forEach(id => {
+                const element = document.getElementById(id);
+                if (element) {
+                    element.addEventListener('input', updateLabPreview);
+                    element.addEventListener('change', updateLabPreview);
+                }
+            });
+        });
+    </script>
 </body>
 </html>
