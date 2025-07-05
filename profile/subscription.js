@@ -116,17 +116,23 @@ function getPlanData(plan) {
             monthlyPrice: 0,
             annualPrice: 0
         },
+        'starter': {
+            name: 'Starter Plan',
+            price: isAnnual ? 7 : 9,
+            monthlyPrice: 9,
+            annualPrice: 7
+        },
         'pro': {
             name: 'Pro Plan',
-            price: isAnnual ? 15 : 19,
-            monthlyPrice: 19,
-            annualPrice: 15
+            price: isAnnual ? 24 : 29,
+            monthlyPrice: 29,
+            annualPrice: 24
         },
         'enterprise': {
             name: 'Enterprise Plan',
-            price: isAnnual ? 39 : 49,
-            monthlyPrice: 49,
-            annualPrice: 39
+            price: isAnnual ? 65 : 79,
+            monthlyPrice: 79,
+            annualPrice: 65
         }
     };
     
@@ -311,6 +317,7 @@ function updateCurrentPlan() {
 function getPlanDescription(plan) {
     const descriptions = {
         'free': 'Perfect for getting started with basic features',
+        'starter': 'Great for individual learners getting started',
         'pro': 'Ideal for serious learners and professionals',
         'enterprise': 'Complete solution for teams and organizations'
     };
@@ -323,9 +330,12 @@ function updateUsageBars(plan) {
     const storageBar = document.querySelector('.usage-bar .usage-fill');
     const storageText = document.querySelector('.usage-text');
     
-    if (plan === 'pro') {
-        if (storageBar) storageBar.style.width = '3%';
-        if (storageText) storageText.textContent = '3GB / 100GB';
+    if (plan === 'starter') {
+        if (storageBar) storageBar.style.width = '6%';
+        if (storageText) storageText.textContent = '3GB / 50GB';
+    } else if (plan === 'pro') {
+        if (storageBar) storageBar.style.width = '1.5%';
+        if (storageText) storageText.textContent = '3GB / 200GB';
     } else if (plan === 'enterprise') {
         if (storageBar) storageBar.style.width = '0.3%';
         if (storageText) storageText.textContent = '3GB / 1TB';
