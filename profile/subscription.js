@@ -19,6 +19,9 @@ function initializePage() {
         billingToggle.addEventListener('change', toggleBilling);
     }
     
+    // Initialize billing display (monthly by default)
+    initializeBillingDisplay();
+    
     // Set up FAQ toggles
     const faqQuestions = document.querySelectorAll('.faq-question');
     faqQuestions.forEach(question => {
@@ -57,19 +60,64 @@ function initializePage() {
     console.log('Subscription page initialized');
 }
 
+// Initialize billing display to show monthly by default
+function initializeBillingDisplay() {
+    const monthlyPrices = document.querySelectorAll('.monthly-price');
+    const yearlyPrices = document.querySelectorAll('.yearly-price');
+    const monthlyPeriods = document.querySelectorAll('.monthly-period');
+    const yearlyPeriods = document.querySelectorAll('.yearly-period');
+    const yearlySavings = document.querySelectorAll('.yearly-savings');
+    
+    // Show monthly by default
+    monthlyPrices.forEach(price => price.style.display = 'inline');
+    yearlyPrices.forEach(price => price.style.display = 'none');
+    monthlyPeriods.forEach(period => period.style.display = 'inline');
+    yearlyPeriods.forEach(period => period.style.display = 'none');
+    yearlySavings.forEach(savings => savings.style.display = 'none');
+    
+    // Set active label
+    const monthlyLabel = document.querySelector('.monthly-label');
+    const yearlyLabel = document.querySelector('.yearly-label');
+    
+    if (monthlyLabel) monthlyLabel.classList.add('active');
+    if (yearlyLabel) yearlyLabel.classList.remove('active');
+}
+
 // Toggle billing between monthly and annual
 function toggleBilling() {
     isAnnual = document.getElementById('billingToggle').checked;
     
     const monthlyPrices = document.querySelectorAll('.monthly-price');
-    const annualPrices = document.querySelectorAll('.annual-price');
+    const yearlyPrices = document.querySelectorAll('.yearly-price');
+    const monthlyPeriods = document.querySelectorAll('.monthly-period');
+    const yearlyPeriods = document.querySelectorAll('.yearly-period');
+    const yearlySavings = document.querySelectorAll('.yearly-savings');
+    
+    // Toggle pricing display
+    if (isAnnual) {
+        monthlyPrices.forEach(price => price.style.display = 'none');
+        yearlyPrices.forEach(price => price.style.display = 'inline');
+        monthlyPeriods.forEach(period => period.style.display = 'none');
+        yearlyPeriods.forEach(period => period.style.display = 'inline');
+        yearlySavings.forEach(savings => savings.style.display = 'block');
+    } else {
+        monthlyPrices.forEach(price => price.style.display = 'inline');
+        yearlyPrices.forEach(price => price.style.display = 'none');
+        monthlyPeriods.forEach(period => period.style.display = 'inline');
+        yearlyPeriods.forEach(period => period.style.display = 'none');
+        yearlySavings.forEach(savings => savings.style.display = 'none');
+    }
+    
+    // Update toggle labels
+    const monthlyLabel = document.querySelector('.monthly-label');
+    const yearlyLabel = document.querySelector('.yearly-label');
     
     if (isAnnual) {
-        monthlyPrices.forEach(price => price.classList.add('d-none'));
-        annualPrices.forEach(price => price.classList.remove('d-none'));
+        monthlyLabel.classList.remove('active');
+        yearlyLabel.classList.add('active');
     } else {
-        monthlyPrices.forEach(price => price.classList.remove('d-none'));
-        annualPrices.forEach(price => price.classList.add('d-none'));
+        monthlyLabel.classList.add('active');
+        yearlyLabel.classList.remove('active');
     }
     
     // Update pricing in the modal if it's open
@@ -97,7 +145,7 @@ function selectPlan(plan) {
     const planData = getPlanData(plan);
     
     planNameElement.textContent = planData.name;
-    planPriceElement.textContent = `$${planData.price}/${isAnnual ? 'year' : 'month'}`;
+    planPriceElement.textContent = `${planData.currency}${planData.price.toLocaleString()}/${isAnnual ? 'year' : 'month'}`;
     
     // Show modal
     const bsModal = new bootstrap.Modal(modal);
@@ -110,33 +158,30 @@ function selectPlan(plan) {
 // Get plan data
 function getPlanData(plan) {
     const plans = {
-        'free': {
-            name: 'Free Plan',
-            price: 0,
-            monthlyPrice: 0,
-            annualPrice: 0
-        },
-        'starter': {
-            name: 'Starter Plan',
-            price: isAnnual ? 7 : 9,
-            monthlyPrice: 9,
-            annualPrice: 7
+        'basic': {
+            name: 'Basic Plan',
+            price: isAnnual ? 4900 : 7000,
+            monthlyPrice: 7000,
+            annualPrice: 4900,
+            currency: '₹'
         },
         'pro': {
-            name: 'Pro Plan',
-            price: isAnnual ? 24 : 29,
-            monthlyPrice: 29,
-            annualPrice: 24
+            name: 'Pro Plan', 
+            price: isAnnual ? 21000 : 30000,
+            monthlyPrice: 30000,
+            annualPrice: 21000,
+            currency: '₹'
         },
-        'enterprise': {
-            name: 'Enterprise Plan',
-            price: isAnnual ? 65 : 79,
-            monthlyPrice: 79,
-            annualPrice: 65
+        'student': {
+            name: 'Student Plan',
+            price: 0,
+            monthlyPrice: 0,
+            annualPrice: 0,
+            currency: '₹'
         }
     };
     
-    return plans[plan] || plans['free'];
+    return plans[plan] || plans['basic'];
 }
 
 // Update modal pricing when billing toggle changes
@@ -145,7 +190,7 @@ function updateModalPricing() {
         const planData = getPlanData(selectedPlan);
         const planPriceElement = document.getElementById('selectedPlanPrice');
         if (planPriceElement) {
-            planPriceElement.textContent = `$${planData.price}/${isAnnual ? 'year' : 'month'}`;
+            planPriceElement.textContent = `${planData.currency}${planData.price.toLocaleString()}/${isAnnual ? 'year' : 'month'}`;
         }
     }
 }

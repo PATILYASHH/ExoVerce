@@ -149,96 +149,67 @@
                 <h2 class="section-title">Choose Your Plan</h2>
                 <p class="section-subtitle">Select the perfect plan for your learning goals</p>
                 <div class="billing-toggle">
-                    <span class="toggle-label">Monthly</span>
+                    <span class="toggle-label monthly-label active">Monthly</span>
                     <div class="toggle-switch">
                         <input type="checkbox" id="billingToggle" onchange="toggleBilling()">
                         <label for="billingToggle"></label>
                     </div>
-                    <span class="toggle-label">Annual <span class="discount-badge">Save 20%</span></span>
+                    <span class="toggle-label yearly-label">Yearly <span class="discount-badge">Save 30%</span></span>
                 </div>
             </div>
 
             <div class="pricing-grid">
-                <!-- Free Plan -->
+                <!-- Basic Plan -->
                 <div class="pricing-card">
                     <div class="plan-header">
-                        <h3 class="plan-name">Free</h3>
+                        <h3 class="plan-name">Basic</h3>
                         <div class="plan-price">
-                            <span class="price">$0</span>
-                            <span class="period">/month</span>
+                            <span class="price monthly-price">₹7,000</span>
+                            <span class="price yearly-price" style="display: none;">₹4,900</span>
+                            <span class="period monthly-period">/month</span>
+                            <span class="period yearly-period" style="display: none;">/month</span>
                         </div>
-                        <p class="plan-description">Perfect for beginners</p>
-                    </div>
-                    <div class="plan-features">
-                        <div class="feature-item">
-                            <i class="fa-solid fa-check"></i>
-                            <span>5GB Storage</span>
-                        </div>
-                        <div class="feature-item">
-                            <i class="fa-solid fa-check"></i>
-                            <span>20 Downloads/month</span>
-                        </div>
-                        <div class="feature-item">
-                            <i class="fa-solid fa-check"></i>
-                            <span>Basic Support</span>
-                        </div>
-                        <div class="feature-item">
-                            <i class="fa-solid fa-check"></i>
-                            <span>Community Access</span>
-                        </div>
-                        <div class="feature-item disabled">
-                            <i class="fa-solid fa-times"></i>
-                            <span>Premium Courses</span>
-                        </div>
-                        <div class="feature-item disabled">
-                            <i class="fa-solid fa-times"></i>
-                            <span>1:1 Mentoring</span>
-                        </div>
-                    </div>
-                    <button class="btn btn-outline-primary current-plan" disabled>
-                        <i class="fa-solid fa-check"></i> Current Plan
-                    </button>
-                </div>
-
-                <!-- Starter Plan -->
-                <div class="pricing-card">
-                    <div class="plan-header">
-                        <h3 class="plan-name">Starter</h3>
-                        <div class="plan-price">
-                            <span class="price monthly-price">$9</span>
-                            <span class="price annual-price d-none">$7</span>
-                            <span class="period">/month</span>
+                        <div class="yearly-savings" style="display: none;">
+                            <span class="savings-text">₹25,200 saved yearly!</span>
                         </div>
                         <p class="plan-description">Perfect for individual learners</p>
                     </div>
                     <div class="plan-features">
                         <div class="feature-item">
-                            <i class="fa-solid fa-check"></i>
-                            <span>50GB Storage</span>
-                        </div>
-                        <div class="feature-item">
-                            <i class="fa-solid fa-check"></i>
-                            <span>100 Downloads/month</span>
-                        </div>
-                        <div class="feature-item">
-                            <i class="fa-solid fa-check"></i>
-                            <span>Email Support</span>
-                        </div>
-                        <div class="feature-item">
-                            <i class="fa-solid fa-check"></i>
-                            <span>Basic Analytics</span>
-                        </div>
-                        <div class="feature-item">
-                            <i class="fa-solid fa-check"></i>
-                            <span>Mobile App Access</span>
+                            <i class="fa-solid fa-brain"></i>
+                            <span><strong>5K AI Tokens</strong> per day</span>
                         </div>
                         <div class="feature-item disabled">
                             <i class="fa-solid fa-times"></i>
-                            <span>Premium Courses</span>
+                            <span>No extra tokens available</span>
+                        </div>
+                        <div class="feature-item">
+                            <i class="fa-solid fa-clock"></i>
+                            <span><strong>50 extra hours</strong> per month</span>
+                        </div>
+                        <div class="feature-item">
+                            <i class="fa-solid fa-users"></i>
+                            <span>Up to <strong>3 users</strong> collaboration</span>
+                        </div>
+                        <div class="feature-item">
+                            <i class="fa-solid fa-flask"></i>
+                            <span><strong>1 Lab</strong> extra with subscription</span>
+                        </div>
+                        <div class="feature-item">
+                            <i class="fa-solid fa-code-branch"></i>
+                            <span>Explore and clone labs</span>
+                        </div>
+                        <div class="feature-item">
+                            <i class="fa-solid fa-upload"></i>
+                            <span>Push code to lab</span>
+                        </div>
+                        <div class="feature-item">
+                            <i class="fa-solid fa-hdd"></i>
+                            <span><strong>5 GB</strong> extra storage</span>
                         </div>
                     </div>
-                    <button class="btn btn-outline-primary" onclick="selectPlan('starter')">
-                        <i class="fa-solid fa-play"></i> Choose Starter
+                    <button class="btn btn-outline-primary" onclick="selectPlan('basic')">
+                        <i class="fa-solid fa-rocket"></i> Choose Basic
                     </button>
                 </div>
 
@@ -251,98 +222,105 @@
                     <div class="plan-header">
                         <h3 class="plan-name">Pro</h3>
                         <div class="plan-price">
-                            <span class="price monthly-price">$29</span>
-                            <span class="price annual-price d-none">$24</span>
-                            <span class="period">/month</span>
+                            <span class="price monthly-price">₹30,000</span>
+                            <span class="price yearly-price" style="display: none;">₹21,000</span>
+                            <span class="period monthly-period">/month</span>
+                            <span class="period yearly-period" style="display: none;">/month</span>
+                        </div>
+                        <div class="yearly-savings" style="display: none;">
+                            <span class="savings-text">₹1,08,000 saved yearly!</span>
                         </div>
                         <p class="plan-description">For serious learners & professionals</p>
                     </div>
                     <div class="plan-features">
                         <div class="feature-item">
-                            <i class="fa-solid fa-check"></i>
-                            <span>200GB Storage</span>
+                            <i class="fa-solid fa-infinity"></i>
+                            <span><strong>Unlimited</strong> AI Tokens</span>
                         </div>
                         <div class="feature-item">
-                            <i class="fa-solid fa-check"></i>
-                            <span>Unlimited Downloads</span>
+                            <i class="fa-solid fa-infinity"></i>
+                            <span><strong>Unlimited</strong> usage hours</span>
                         </div>
                         <div class="feature-item">
-                            <i class="fa-solid fa-check"></i>
-                            <span>Priority Support</span>
+                            <i class="fa-solid fa-users"></i>
+                            <span>Up to <strong>10 users</strong> collaboration</span>
                         </div>
                         <div class="feature-item">
-                            <i class="fa-solid fa-check"></i>
-                            <span>Premium Courses</span>
+                            <i class="fa-solid fa-flask"></i>
+                            <span><strong>5 Labs</strong> extra with subscription</span>
                         </div>
                         <div class="feature-item">
-                            <i class="fa-solid fa-check"></i>
-                            <span>Advanced Analytics</span>
+                            <i class="fa-solid fa-code-branch"></i>
+                            <span>Full lab access & cloning</span>
                         </div>
                         <div class="feature-item">
-                            <i class="fa-solid fa-check"></i>
-                            <span>Certification</span>
+                            <i class="fa-solid fa-upload"></i>
+                            <span>Advanced code deployment</span>
                         </div>
                         <div class="feature-item">
-                            <i class="fa-solid fa-check"></i>
-                            <span>AI-Powered Learning</span>
+                            <i class="fa-solid fa-hdd"></i>
+                            <span><strong>10 GB</strong> extra storage</span>
                         </div>
                         <div class="feature-item">
-                            <i class="fa-solid fa-check"></i>
-                            <span>Offline Content</span>
+                            <i class="fa-solid fa-headset"></i>
+                            <span>Priority support</span>
                         </div>
                     </div>
                     <button class="btn btn-primary" onclick="selectPlan('pro')">
-                        <i class="fa-solid fa-rocket"></i> Upgrade to Pro
+                        <i class="fa-solid fa-crown"></i> Upgrade to Pro
                     </button>
                 </div>
 
-                <!-- Enterprise Plan -->
-                <div class="pricing-card">
+                <!-- Student Plan -->
+                <div class="pricing-card student-special">
+                    <div class="student-badge">
+                        <i class="fa-solid fa-graduation-cap"></i>
+                        Student Special
+                    </div>
                     <div class="plan-header">
-                        <h3 class="plan-name">Enterprise</h3>
+                        <h3 class="plan-name">Student</h3>
                         <div class="plan-price">
-                            <span class="price monthly-price">$79</span>
-                            <span class="price annual-price d-none">$65</span>
-                            <span class="period">/month</span>
+                            <span class="price">₹0</span>
+                            <span class="period">Free for Students</span>
                         </div>
-                        <p class="plan-description">For teams and organizations</p>
+                        <p class="plan-description">Exclusive offer for verified students</p>
                     </div>
                     <div class="plan-features">
                         <div class="feature-item">
-                            <i class="fa-solid fa-check"></i>
-                            <span>1TB Storage</span>
+                            <i class="fa-solid fa-brain"></i>
+                            <span><strong>Limited</strong> AI Tokens</span>
                         </div>
                         <div class="feature-item">
-                            <i class="fa-solid fa-check"></i>
-                            <span>Unlimited Everything</span>
+                            <i class="fa-solid fa-clock"></i>
+                            <span><strong>20 extra hours</strong> per month</span>
                         </div>
                         <div class="feature-item">
-                            <i class="fa-solid fa-check"></i>
-                            <span>24/7 Support</span>
+                            <i class="fa-solid fa-users"></i>
+                            <span>Up to <strong>2 users</strong> collaboration</span>
                         </div>
                         <div class="feature-item">
-                            <i class="fa-solid fa-check"></i>
-                            <span>1:1 Mentoring</span>
+                            <i class="fa-solid fa-flask"></i>
+                            <span><strong>Unlimited labs</strong> access</span>
                         </div>
                         <div class="feature-item">
-                            <i class="fa-solid fa-check"></i>
-                            <span>Team Management</span>
+                            <i class="fa-solid fa-code-branch"></i>
+                            <span>Explore and clone labs</span>
                         </div>
                         <div class="feature-item">
-                            <i class="fa-solid fa-check"></i>
-                            <span>Custom Integrations</span>
+                            <i class="fa-solid fa-upload"></i>
+                            <span>Push code to lab</span>
                         </div>
                         <div class="feature-item">
-                            <i class="fa-solid fa-check"></i>
-                            <span>White-label Solutions</span>
+                            <i class="fa-solid fa-hdd"></i>
+                            <span><strong>Unlimited</strong> storage</span>
                         </div>
                         <div class="feature-item">
-                            <i class="fa-solid fa-check"></i>
-                            <span>Advanced Security</span>
+                            <i class="fa-solid fa-graduation-cap"></i>
+                            <span>Student verification required</span>
                         </div>
                     </div>
-                    <button class="btn btn-outline-primary" onclick="selectPlan('enterprise')">
-                        <i class="fa-solid fa-building"></i> Choose Enterprise
+                    <button class="btn btn-success" onclick="selectPlan('student')">
+                        <i class="fa-solid fa-graduation-cap"></i> Claim Student Access
                     </button>
                 </div>
             </div>
@@ -358,46 +336,62 @@
                     <thead>
                         <tr>
                             <th>Features</th>
-                            <th>Free</th>
-                            <th>Starter</th>
+                            <th>Basic</th>
                             <th>Pro</th>
-                            <th>Enterprise</th>
+                            <th>Student</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
-                            <td>Storage Space</td>
-                            <td>5GB</td>
-                            <td>50GB</td>
-                            <td>200GB</td>
-                            <td>1TB</td>
-                        </tr>
-                        <tr>
-                            <td>Monthly Downloads</td>
-                            <td>20</td>
-                            <td>100</td>
+                            <td>AI Tokens</td>
+                            <td>5K/day</td>
                             <td>Unlimited</td>
+                            <td>Limited</td>
+                        </tr>
+                        <tr>
+                            <td>Usage Limit</td>
+                            <td>50 hours/month</td>
+                            <td>Unlimited</td>
+                            <td>20 hours/month</td>
+                        </tr>
+                        <tr>
+                            <td>User Collaboration</td>
+                            <td>Up to 3 users</td>
+                            <td>Up to 10 users</td>
+                            <td>Up to 2 users</td>
+                        </tr>
+                        <tr>
+                            <td>Laboratory Access</td>
+                            <td>1 extra lab</td>
+                            <td>5 extra labs</td>
+                            <td>Unlimited labs</td>
+                        </tr>
+                        <tr>
+                            <td>Storage</td>
+                            <td>5 GB extra</td>
+                            <td>10 GB extra</td>
                             <td>Unlimited</td>
                         </tr>
                         <tr>
-                            <td>Premium Courses</td>
-                            <td><i class="fa-solid fa-times text-danger"></i></td>
-                            <td><i class="fa-solid fa-times text-danger"></i></td>
-                            <td><i class="fa-solid fa-check text-success"></i></td>
-                            <td><i class="fa-solid fa-check text-success"></i></td>
+                            <td>Code Features</td>
+                            <td>Explore, clone & push</td>
+                            <td>Advanced deployment</td>
+                            <td>Explore, clone & push</td>
                         </tr>
                         <tr>
-                            <td>AI-Powered Learning</td>
-                            <td><i class="fa-solid fa-times text-danger"></i></td>
-                            <td><i class="fa-solid fa-times text-danger"></i></td>
-                            <td><i class="fa-solid fa-check text-success"></i></td>
-                            <td><i class="fa-solid fa-check text-success"></i></td>
+                            <td>Support</td>
+                            <td>Standard</td>
+                            <td>Priority</td>
+                            <td>Community</td>
                         </tr>
                         <tr>
-                            <td>1:1 Mentoring</td>
-                            <td><i class="fa-solid fa-times text-danger"></i></td>
-                            <td><i class="fa-solid fa-times text-danger"></i></td>
-                            <td><i class="fa-solid fa-times text-danger"></i></td>
+                            <td>Monthly Price</td>
+                            <td>₹7,000</td>
+                            <td>₹30,000</td>
+                            <td>Free</td>
+                        </tr>
+                    </tbody>
+                </table>
                             <td><i class="fa-solid fa-check text-success"></i></td>
                         </tr>
                         <tr>

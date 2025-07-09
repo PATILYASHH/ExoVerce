@@ -148,12 +148,12 @@
     border-left: 4px solid var(--primary-color);
 }
 
-/* Different workspace types - color coding */
-.lab-card:nth-child(1) { border-left-color: #FFD700; } /* Smart LED - Gold */
-.lab-card:nth-child(2) { border-left-color: #FF6B35; } /* Rover - Orange */
-.lab-card:nth-child(3) { border-left-color: #00B4D8; } /* Security - Blue */
-.lab-card:nth-child(4) { border-left-color: #90E0EF; } /* Weather - Light Blue */
-.lab-card:nth-child(5) { border-left-color: #F72585; } /* Health - Pink */
+/* Different workspace types - color coding using enhanced palette */
+.lab-card:nth-child(1) { border-left-color: var(--warning-color); } /* Smart LED - Amber */
+.lab-card:nth-child(2) { border-left-color: var(--danger-color); } /* Rover - Red */
+.lab-card:nth-child(3) { border-left-color: var(--primary-color); } /* Security - Blue */
+.lab-card:nth-child(4) { border-left-color: var(--info-color); } /* Weather - Cyan */
+.lab-card:nth-child(5) { border-left-color: var(--secondary-color); } /* Health - Orange */
 
 /* Collaboration indicator */
 .stat-item i.fa-users {
@@ -161,12 +161,12 @@
 }
 
 .create-new-card {
-    background: var(--gradient-secondary);
+    background: var(--gradient-warning);
     border: 2px dashed var(--warning-color);
 }
 
 .create-new-card .lab-card-header {
-    background: linear-gradient(135deg, var(--warning-color) 0%, var(--secondary-color) 100%);
+    background: var(--gradient-warning);
 }
 
 .create-new-card .card-text {
@@ -315,10 +315,10 @@
 }
 
 /* Workspace color variations for quick actions */
-.quick-action-btn:nth-child(1) { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); }
-.quick-action-btn:nth-child(2) { background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); }
-.quick-action-btn:nth-child(3) { background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%); }
-.quick-action-btn:nth-child(4) { background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%); }
+.quick-action-btn:nth-child(1) { background: var(--gradient-primary); }
+.quick-action-btn:nth-child(2) { background: var(--gradient-danger); }
+.quick-action-btn:nth-child(3) { background: var(--gradient-blue); }
+.quick-action-btn:nth-child(4) { background: var(--gradient-success); }
 
 /* Workspace Stats */
 .workspace-stats {

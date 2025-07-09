@@ -268,6 +268,12 @@
 .toggle-label {
     font-weight: 500;
     color: var(--gray-700);
+    transition: all 0.3s ease;
+}
+
+.toggle-label.active {
+    color: var(--primary-color);
+    font-weight: 600;
 }
 
 .toggle-switch {
@@ -372,103 +378,83 @@
     box-shadow: 0 10px 40px rgba(37, 99, 235, 0.2);
 }
 
-.popular-badge {
+/* Student Plan Special Styling */
+.pricing-card.student-special {
+    border: 2px solid var(--success-color);
+    background: linear-gradient(135deg, rgba(16, 185, 129, 0.1), rgba(16, 185, 129, 0.05));
+}
+
+.student-badge {
     position: absolute;
-    top: -15px;
-    left: 50%;
-    transform: translateX(-50%);
-    background: var(--gradient-primary);
+    top: -10px;
+    right: 20px;
+    background: var(--gradient-success);
     color: white;
-    padding: 0.5rem 1.5rem;
+    padding: 0.5rem 1rem;
     border-radius: 20px;
-    font-weight: 600;
     font-size: 0.875rem;
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
+    font-weight: 600;
+    transform: rotate(10deg);
+    box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
 }
 
-.plan-header {
-    text-align: center;
-    margin-bottom: 2rem;
+.student-badge i {
+    margin-right: 0.5rem;
 }
 
-.plan-header .plan-name {
-    font-size: 1.5rem;
-    font-weight: 700;
-    color: var(--gray-900);
-    margin-bottom: 0.5rem;
+/* Enhanced pricing card styles for new plans */
+.pricing-card .feature-item strong {
+    color: var(--primary-color);
+    font-weight: 600;
 }
 
-.plan-header .plan-price {
-    display: flex;
-    align-items: baseline;
-    justify-content: center;
-    gap: 0.25rem;
-    margin-bottom: 0.5rem;
-}
-
-.plan-header .price {
-    font-size: 3rem;
+.pricing-card .plan-price .price {
+    font-size: 2.5rem;
     font-weight: 700;
     color: var(--primary-color);
 }
 
-.plan-header .period {
-    font-size: 1rem;
-    color: var(--gray-600);
+.pricing-card.popular .plan-price .price {
+    color: var(--warning-color);
 }
 
-.plan-header .plan-description {
-    color: var(--gray-600);
-    margin-bottom: 0;
-}
-
-.plan-features {
-    margin-bottom: 2rem;
-}
-
-.feature-item {
-    display: flex;
-    align-items: center;
-    gap: 0.75rem;
-    padding: 0.75rem 0;
-    border-bottom: 1px solid var(--gray-100);
-}
-
-.feature-item:last-child {
-    border-bottom: none;
-}
-
-.feature-item i {
+.pricing-card.student-special .plan-price .price {
     color: var(--success-color);
-    font-size: 1rem;
+    font-size: 3rem;
 }
 
-.feature-item.disabled i {
-    color: var(--gray-400);
-}
-
-.feature-item.disabled span {
-    color: var(--gray-400);
-}
-
-.pricing-card .btn {
-    width: 100%;
-    padding: 0.75rem;
-    border-radius: 12px;
+.pricing-card.student-special .plan-price .period {
+    color: var(--success-color);
     font-weight: 600;
-    transition: all 0.3s ease;
 }
 
-.pricing-card .btn:hover {
-    transform: translateY(-2px);
+/* Feature icons styling */
+.feature-item i.fa-brain,
+.feature-item i.fa-infinity {
+    color: var(--primary-color);
 }
 
-.pricing-card .btn.current-plan {
-    background: var(--gray-100);
-    color: var(--gray-600);
-    border-color: var(--gray-300);
+.feature-item i.fa-users {
+    color: var(--info-color);
+}
+
+.feature-item i.fa-flask {
+    color: var(--warning-color);
+}
+
+.feature-item i.fa-hdd,
+.feature-item i.fa-code-branch,
+.feature-item i.fa-upload {
+    color: var(--success-color);
+}
+
+.feature-item i.fa-graduation-cap {
+    color: var(--success-color);
+}
+
+.feature-item i.fa-headset,
+.feature-item i.fa-clock {
+    color: var(--secondary-color);
 }
 
 /* Features Section */
@@ -786,4 +772,19 @@
 
 ::-webkit-scrollbar-thumb:hover {
     background: var(--gray-500);
+}
+
+.yearly-savings {
+    margin-top: 0.5rem;
+    text-align: center;
+}
+
+.savings-text {
+    color: var(--success-color);
+    font-weight: 600;
+    font-size: 0.875rem;
+    background: rgba(16, 185, 129, 0.1);
+    padding: 0.25rem 0.75rem;
+    border-radius: 12px;
+    display: inline-block;
 }

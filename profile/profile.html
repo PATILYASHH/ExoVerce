@@ -350,7 +350,7 @@
                 <div class="profile-stats">
                     <div class="stat-item">
                         <div class="stat-number">24</div>
-                        <div class="stat-label">Labs Completed</div>
+                        <div class="stat-label">Labs Created</div>
                     </div>
                     <div class="stat-item">
                         <div class="stat-number">156</div>
@@ -548,7 +548,7 @@
                 // Simulate loading user data
                 const userData = {
                     name: 'Alex Thompson',
-                    labsCompleted: 24,
+                    labsCreated: 24,
                     hoursLearned: 156,
                     achievements: 12,
                     progress: 89
@@ -559,7 +559,7 @@
 
             updateUserStats(data) {
                 const stats = document.querySelectorAll('.stat-number');
-                const values = [data.labsCompleted, data.hoursLearned, data.achievements, `${data.progress}%`];
+                const values = [data.labsCreated, data.hoursLearned, data.achievements, `${data.progress}%`];
                 
                 stats.forEach((stat, index) => {
                     this.animateCounter(stat, 0, parseInt(values[index]) || 0, 1000);

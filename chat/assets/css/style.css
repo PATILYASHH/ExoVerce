@@ -2,48 +2,35 @@
 
 /* ===== DESIGN TOKENS ===== */
 :root {
-    /* ExoVerce Brand Colors */
-    --primary-color: #667eea;
-    --primary-dark: #5a6fd8;
-    --primary-light: #7c8ef0;
-    --secondary-color: #764ba2;
-    --accent-color: #4a90e2;
-    --success-color: #00c896;
-    --warning-color: #ffc107;
-    --error-color: #dc3545;
+    /* Import ExoVerce Brand Colors from global.css */
+    --exochat-primary: var(--primary-color, #2563eb);
+    --exochat-primary-dark: var(--primary-dark, #1d4ed8);
+    --exochat-primary-light: var(--primary-light, #3b82f6);
+    --exochat-secondary: var(--secondary-color, #f59e0b);
+    --exochat-success: var(--success-color, #10b981);
+    --exochat-warning: var(--warning-color, #f59e0b);
+    --exochat-error: var(--danger-color, #ef4444);
     
-    /* Chat-specific Colors */
-    --sidebar-bg: #2f3349;
-    --sidebar-hover: #36394d;
-    --sidebar-active: rgba(102, 126, 234, 0.2);
-    --main-bg: #ffffff;
-    --chat-bg: #f8f9fa;
-    --message-sent: #667eea;
-    --message-received: #ffffff;
-    --message-system: #e3f2fd;
-    --input-bg: #ffffff;
-    --border-color: #e1e5e9;
-    --text-primary: #2d3748;
-    --text-secondary: #718096;
-    --text-muted: #a0aec0;
+    /* Chat-specific Colors using global palette */
+    --sidebar-bg: var(--gray-800);
+    --sidebar-hover: var(--gray-700);
+    --sidebar-active: rgba(37, 99, 235, 0.2);
+    --main-bg: var(--light-color);
+    --chat-bg: var(--gray-50);
+    --message-sent: var(--primary-color);
+    --message-received: var(--light-color);
+    --message-system: var(--primary-50);
+    --input-bg: var(--light-color);
+    --border-color: var(--gray-200);
+    --text-primary: var(--gray-900);
+    --text-secondary: var(--gray-700);
+    --text-muted: var(--gray-500);
     
-    /* Neutral Colors */
-    --gray-50: #f9fafb;
-    --gray-100: #f3f4f6;
-    --gray-200: #e5e7eb;
-    --gray-300: #d1d5db;
-    --gray-400: #9ca3af;
-    --gray-500: #6b7280;
-    --gray-600: #4b5563;
-    --gray-700: #374151;
-    --gray-800: #1f2937;
-    --gray-900: #111827;
-    
-    /* Status Colors */
-    --online-color: #10b981;
-    --away-color: #f59e0b;
-    --busy-color: #ef4444;
-    --offline-color: #6b7280;
+    /* Status Colors using global palette */
+    --online-color: var(--success-color);
+    --away-color: var(--warning-color);
+    --busy-color: var(--danger-color);
+    --offline-color: var(--gray-500);
     
     /* Spacing */
     --space-xs: 0.25rem;
@@ -129,7 +116,7 @@
     font-size: 1.25rem;
     font-weight: 700;
     margin: 0;
-    background: linear-gradient(135deg, #667eea, #764ba2);
+    background: var(--gradient-primary);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -143,7 +130,7 @@
 .control-btn {
     background: none;
     border: none;
-    color: #a0aec0;
+    color: var(--text-muted);
     padding: var(--space-sm);
     border-radius: var(--radius-sm);
     cursor: pointer;

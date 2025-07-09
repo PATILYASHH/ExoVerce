@@ -21,31 +21,37 @@ body {
 
 /* Navigation Styles */
 .navbar {
-    background: var(--light-color) !important;
-    backdrop-filter: blur(10px);
-    box-shadow: var(--shadow-md);
+    background: var(--gradient-primary) !important;
+    backdrop-filter: blur(20px);
+    box-shadow: var(--shadow-lg);
     padding: var(--spacing-md) 0;
-    border-bottom: 1px solid var(--gray-200);
+    border-bottom: 1px solid rgba(255,255,255,0.1);
 }
 
 .navbar-brand {
-    color: var(--primary-color) !important;
+    color: var(--light-color) !important;
     font-weight: var(--font-weight-bold);
     font-size: var(--font-size-xl);
+    text-shadow: 0 2px 4px rgba(0,0,0,0.3);
 }
 
 .navbar-brand:hover {
-    color: var(--primary-dark) !important;
+    color: var(--light-color) !important;
+    transform: scale(1.05);
 }
 
 .nav-link {
-    color: var(--gray-700) !important;
+    color: var(--light-color) !important;
     font-weight: var(--font-weight-medium);
     position: relative;
+    margin: 0 var(--spacing-sm);
+    padding: var(--spacing-sm) !important;
+    border-radius: var(--radius-md);
 }
 
 .nav-link:hover {
-    color: var(--primary-color) !important;
+    color: var(--secondary-color) !important;
+    background: rgba(255,255,255,0.1);
 }
 
 /* Search Bar */
@@ -69,36 +75,24 @@ body {
 
 .search-input:focus {
     outline: none;
-    box-shadow: 0 0 0 2px var(--secondary-color);
+    box-shadow: 0 0 0 2px var(--primary-color);
     background: var(--light-color);
 }
 
 .search-btn {
-    background: var(--secondary-color);
+    background: var(--primary-color);
     border: none;
     border-radius: 0 var(--radius-full) var(--radius-full) 0;
     padding: var(--spacing-sm) var(--spacing-lg);
-    color: var(--dark-color);
+    color: var(--light-color);
 }
 
 .search-btn:hover {
-    background: var(--secondary-dark);
-    color: var(--dark-color);
+    background: var(--primary-dark);
+    color: var(--light-color);
 }
 
 /* Navigation Links */
-.nav-link {
-    color: var(--light-color) !important;
-    margin: 0 var(--spacing-sm);
-    padding: var(--spacing-sm) !important;
-    border-radius: var(--radius-md);
-    position: relative;
-}
-
-.nav-link:hover {
-    color: var(--secondary-color) !important;
-    background: rgba(255,255,255,0.1);
-}
 
 .notification-badge {
     position: absolute;
@@ -1201,7 +1195,7 @@ body {
 }
 
 .rating-stars .stars {
-    color: #ffc107;
+    color: var(--warning-color);
     font-size: 1.1rem;
 }
 
@@ -1566,7 +1560,7 @@ body {
 }
 
 .review-rating {
-    color: #ffc107;
+    color: var(--warning-color);
 }
 
 .review-text {
