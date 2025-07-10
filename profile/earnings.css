@@ -1,0 +1,148 @@
+/* Earnings Page Theme - ExoVerce */
+:root {
+    --primary-color: #764ba2;
+    --success-color: #27ae60;
+    --warning-color: #f1c40f;
+    --danger-color: #e74c3c;
+    --light-color: #f3f3fa;
+    --dark-color: #222;
+    --background-color: #f8f9fa;
+    --border-radius: 18px;
+    --card-shadow: 0 8px 32px rgba(0,0,0,0.10);
+}
+
+body {
+    font-family: 'Segoe UI', Arial, sans-serif;
+    background: var(--background-color);
+    color: var(--dark-color);
+}
+
+.earnings-container {
+    box-shadow: var(--card-shadow);
+    border-radius: var(--border-radius);
+    background: #fff;
+}
+
+.earnings-title {
+    color: var(--primary-color);
+    font-weight: 700;
+    letter-spacing: 1px;
+    margin-bottom: 2rem;
+}
+
+.earnings-cards {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2rem;
+    justify-content: center;
+    margin-bottom: 2rem;
+}
+
+.earn-card {
+    background: var(--light-color);
+    border-radius: 16px;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.07);
+    padding: 2rem 1.5rem 1.5rem 1.5rem;
+    width: 320px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transition: box-shadow 0.2s;
+    position: relative;
+}
+.earn-card:hover {
+    box-shadow: 0 8px 32px rgba(118,75,162,0.13);
+}
+.card-icon {
+    font-size: 2.2rem;
+    color: var(--primary-color);
+    margin-bottom: 1rem;
+}
+.card-content h3 {
+    margin: 0 0 0.5rem 0;
+    font-size: 1.2rem;
+    color: var(--primary-color);
+    font-weight: 600;
+}
+.card-content p {
+    color: #555;
+    font-size: 1rem;
+    margin-bottom: 1rem;
+    text-align: center;
+}
+.earn-btn {
+    background: var(--primary-color);
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    padding: 0.7rem 1.5rem;
+    font-size: 1rem;
+    margin-top: 0.5rem;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+.earn-btn:hover {
+    background: #5a3796;
+}
+
+/* Modal Styles */
+.modal-bg {
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(0,0,0,0.18);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 4000;
+}
+.modal-card {
+    background: #fff;
+    border-radius: 14px;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.13);
+    padding: 2rem 2.5rem 1.5rem 2.5rem;
+    min-width: 320px;
+    max-width: 95vw;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+}
+.modal-card h3 {
+    margin-bottom: 1rem;
+    color: var(--primary-color);
+    font-size: 1.2rem;
+    font-weight: 600;
+}
+.modal-card label {
+    margin-top: 0.7rem;
+    margin-bottom: 0.2rem;
+    color: #444;
+    font-size: 1rem;
+}
+.modal-card input, .modal-card select {
+    padding: 0.5rem 0.7rem;
+    border-radius: 6px;
+    border: 1px solid #ddd;
+    margin-bottom: 0.5rem;
+    font-size: 1rem;
+}
+.modal-card button {
+    margin-top: 1rem;
+}
+
+@media (max-width: 900px) {
+    .earnings-cards {
+        flex-direction: column;
+        align-items: center;
+        gap: 1.2rem;
+    }
+    .earn-card {
+        width: 95vw;
+        max-width: 350px;
+    }
+}
+
+@media (max-width: 600px) {
+    .earnings-container { padding: 1rem 0.5rem; }
+    .earnings-title { font-size: 1.3rem; }
+    .modal-card { padding: 1rem; }
+}

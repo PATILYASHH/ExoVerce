@@ -213,9 +213,10 @@
 }
 
 .bulb.powered {
-    background: linear-gradient(135deg, #ffff00, #ffed4e);
-    box-shadow: 0 0 20px rgba(255, 255, 0, 0.6);
+    background: linear-gradient(135deg, #ffff00, #ffed4e) !important;
+    box-shadow: 0 0 30px 10px rgba(255, 255, 0, 0.7) !important;
     animation: glow 1s ease-in-out infinite alternate;
+    border: 3px solid #ffe600 !important;
 }
 
 @keyframes glow {

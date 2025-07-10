@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ExoVerce -> Earnings</title>
+    <meta name="description" content="Earn tokens on ExoVerce by watching ads, freelancing, and competitions. Withdraw or spend your tokens easily!">
+    <link rel="stylesheet" href="../css/global.css">
+    <link rel="stylesheet" href="earnings.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <style>
+        body { background: var(--background-color, #f8f9fa); }
+        .earnings-container {
+            max-width: 900px;
+            margin: 2rem auto;
+            background: #fff;
+            border-radius: 18px;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.10);
+            padding: 2.5rem 2rem;
+            animation: fadeIn 0.7s;
+        }
+        .earnings-title {
+            font-size: 2.2rem;
+            font-weight: 700;
+            color: var(--primary-color, #764ba2);
+            margin-bottom: 1.5rem;
+            text-align: center;
+            letter-spacing: 1px;
+        }
+        .earnings-cards.grid-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2.5rem;
+        }
+        .earn-card {
+            background: #faf8ff;
+            border-radius: 14px;
+            box-shadow: 0 4px 16px rgba(120, 75, 162, 0.07);
+            padding: 1.5rem 1rem 1.2rem 1rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            transition: box-shadow 0.2s, transform 0.2s;
+            min-height: 220px;
+        }
+        .gradient-card {
+            background: linear-gradient(135deg, #f3e7fa 0%, #e3e0ff 100%);
+        }
+        .earn-card:hover {
+            box-shadow: 0 8px 32px rgba(120, 75, 162, 0.15);
+            transform: translateY(-4px) scale(1.03);
+        }
+        .card-icon {
+            font-size: 2.5rem;
+            color: var(--primary-color, #764ba2);
+            margin-bottom: 0.7rem;
+        }
+        .card-content h3 {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 0.3rem;
+            color: #3d246c;
+        }
+        .card-content p {
+            color: #555;
+            font-size: 1rem;
+            margin-bottom: 0.5rem;
+        }
+        .token-info {
+            background: var(--light-color, #f3f3fa);
+            border-radius: 10px;
+            padding: 1rem 1.5rem;
+            margin: 1.5rem 0 0.5rem 0;
+            font-size: 1.1rem;
+            color: #333;
+            text-align: center;
+        }
+        .conversion-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1rem 0;
+            font-size: 1.05rem;
+        }
+        .conversion-table th, .conversion-table td {
+            border: 1px solid #e0e0e0;
+            padding: 0.75rem 1rem;
+            text-align: center;
+        }
+        .conversion-table th {
+            background: var(--primary-color, #764ba2);
+            color: #fff;
+        }
+        .conversion-table td {
+            background: #faf8ff;
+        }
+        .withdraw-info {
+            margin-top: 1.5rem;
+            font-size: 1rem;
+            color: #444;
+            text-align: center;
+        }
+        .earn-btn {
+            background: var(--primary-color, #764ba2);
+            color: #fff;
+            border: none;
+            border-radius: 8px;
+            padding: 0.7rem 1.5rem;
+            font-size: 1rem;
+            margin-top: 1rem;
+            cursor: pointer;
+            transition: background 0.2s, transform 0.2s;
+        }
+        .earn-btn:hover {
+            background: #5a3796;
+            transform: scale(1.05);
+        }
+        .modal-bg {
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(0,0,0,0.25);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 2000;
+        }
+        .modal-card {
+            background: #fff;
+            border-radius: 14px;
+            box-shadow: 0 8px 32px rgba(120, 75, 162, 0.15);
+            padding: 2rem 2.5rem 1.5rem 2.5rem;
+            min-width: 320px;
+            max-width: 95vw;
+            text-align: center;
+        }
+        .modal-card input, .modal-card select {
+            width: 100%;
+            padding: 0.7rem 1rem;
+            margin: 0.7rem 0 1rem 0;
+            border-radius: 7px;
+            border: 1px solid #d1c4e9;
+            font-size: 1rem;
+        }
+        @media (max-width: 600px) {
+            .earnings-container { padding: 1rem 0.5rem; }
+            .earnings-title { font-size: 1.3rem; }
+            .modal-card { padding: 1rem; }
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+    <div class="earnings-container fade-in">
+        <div class="earnings-title">
+            <i class="fa-solid fa-dollar-sign"></i> Earnings & Token System
+        </div>
+        <div class="earnings-cards grid-cards">
+            <div class="earn-card gradient-card">
+                <div class="card-icon"><i class="fa-solid fa-tv"></i></div>
+                <div class="card-content">
+                    <h3>Watch Ads</h3>
+                    <p>Earn <b>5T</b> for every advertisement you view.</p>
+                    <button class="earn-btn" onclick="showToast('Ad viewing feature coming soon!', 'info')">Watch Ad & Earn 5T</button>
+                </div>
+            </div>
+            <div class="earn-card gradient-card">
+                <div class="card-icon"><i class="fa-solid fa-briefcase"></i></div>
+                <div class="card-content">
+                    <h3>Freelancing</h3>
+                    <p>Earn tokens by freelancing. 10% of your profit is shared with ExoVerce.</p>
+                    <button class="earn-btn" onclick="showToast('Freelancing feature coming soon!', 'info')">Start Freelancing</button>
+                </div>
+            </div>
+            <div class="earn-card gradient-card">
+                <div class="card-icon"><i class="fa-solid fa-trophy"></i></div>
+                <div class="card-content">
+                    <h3>Competitions</h3>
+                    <p>Win tokens in daily and weekly competitions. No commission on winnings!</p>
+                    <button class="earn-btn" onclick="showToast('Competition feature coming soon!', 'info')">View Competitions</button>
+                </div>
+            </div>
+            <div class="earn-card gradient-card">
+                <div class="card-icon"><i class="fa-solid fa-coins"></i></div>
+                <div class="card-content">
+                    <h3>Withdraw Tokens</h3>
+                    <p>Use your tokens to buy anything or withdraw for real money.<br>
+                    <b>10 T = 1 ₹</b> &nbsp; | &nbsp; <b>830 T = 1 $</b><br>
+                    <b>Minimum withdrawal:</b> 1,000 T</p>
+                    <button class="earn-btn" onclick="openWithdrawModal()">Withdraw Tokens</button>
+                </div>
+            </div>
+        </div>
+        <div class="token-info">
+            <b>How to Earn:</b> Watch ads, freelance, or win competitions to collect tokens. Tokens can be exchanged for real money or used for purchases on ExoVerce.<br>
+            <b>Conversion:</b> 10T = ₹1 | 830T = $1
+        </div>
+        <table class="conversion-table">
+            <thead>
+                <tr><th>Tokens</th><th>INR (₹)</th><th>USD ($)</th></tr>
+            </thead>
+            <tbody>
+                <tr><td>1,000</td><td>₹100</td><td>$1.20</td></tr>
+                <tr><td>5,000</td><td>₹500</td><td>$6.02</td></tr>
+                <tr><td>10,000</td><td>₹1,000</td><td>$12.05</td></tr>
+            </tbody>
+        </table>
+        <div class="withdraw-info">
+            <i class="fa-solid fa-info-circle"></i> Withdrawals are processed within 24 hours. Minimum withdrawal: 1,000 T.
+        </div>
+        <div id="withdraw-modal" class="modal-bg" style="display:none;">
+            <div class="modal-card">
+                <h3>Withdraw Tokens</h3>
+                <label for="token-amount">Enter Tokens:</label>
+                <input type="number" id="token-amount" min="1000" placeholder="Minimum 1000 T">
+                <label for="currency">Select Currency:</label>
+                <select id="currency">
+                    <option value="inr">Rupees (₹)</option>
+                    <option value="usd">Dollars ($)</option>
+                </select>
+                <div id="conversion-result" style="margin: 0.5rem 0; color: #333;"></div>
+                <button class="earn-btn" onclick="submitWithdraw()">Exchange & Withdraw</button>
+                <button class="earn-btn" style="background:#eee;color:#333;margin-left:0.5rem;" onclick="closeWithdrawModal()">Cancel</button>
+            </div>
+        </div>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/js/all.min.js"></script>
+    <script>
+        function showToast(message, type = 'info') {
+            const toast = document.createElement('div');
+            toast.className = `toast-notification toast-${type}`;
+            toast.innerHTML = `
+                <div class="toast-content">
+                    <i class="fa-solid fa-${getToastIcon(type)}"></i>
+                    <span>${message}</span>
+                </div>
+            `;
+            if (!document.querySelector('#toast-styles')) {
+                const style = document.createElement('style');
+                style.id = 'toast-styles';
+                style.textContent = `
+                    .toast-notification {
+                        position: fixed;
+                        top: 2rem;
+                        right: 2rem;
+                        background: white;
+                        border-radius: 10px;
+                        box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+                        padding: 1rem 1.5rem;
+                        z-index: 3000;
+                        animation: slideInRight 0.3s ease-out;
+                        border-left: 4px solid var(--primary-color);
+                    }
+                    .toast-success { border-left-color: var(--success-color); }
+                    .toast-warning { border-left-color: var(--warning-color); }
+                    .toast-danger { border-left-color: var(--danger-color); }
+                    .toast-content {
+                        display: flex;
+                        align-items: center;
+                        gap: 0.5rem;
+                    }
+                    @keyframes slideInRight {
+                        from { transform: translateX(100%); opacity: 0; }
+                        to { transform: translateX(0); opacity: 1; }
+                    }
+                `;
+                document.head.appendChild(style);
+            }
+            document.body.appendChild(toast);
+            setTimeout(() => {
+                toast.style.animation = 'slideInRight 0.3s ease-out reverse';
+                setTimeout(() => toast.remove(), 300);
+            }, 3000);
+        }
+        function getToastIcon(type) {
+            const icons = {
+                info: 'info-circle',
+                success: 'check-circle',
+                warning: 'exclamation-triangle',
+                danger: 'exclamation-circle'
+            };
+            return icons[type] || 'info-circle';
+        }
+        function openWithdrawModal() {
+            document.getElementById('withdraw-modal').style.display = 'flex';
+        }
+        function closeWithdrawModal() {
+            document.getElementById('withdraw-modal').style.display = 'none';
+            document.getElementById('conversion-result').innerText = '';
+            document.getElementById('token-amount').value = '';
+        }
+        document.addEventListener('input', function(e) {
+            if (e.target && (e.target.id === 'token-amount' || e.target.id === 'currency')) {
+                updateConversion();
+            }
+        });
+        function updateConversion() {
+            const tokens = parseInt(document.getElementById('token-amount').value, 10);
+            const currency = document.getElementById('currency').value;
+            let result = '';
+            if (!tokens || tokens < 1000) {
+                result = 'Enter at least 1000 tokens.';
+            } else if (currency === 'inr') {
+                result = `${tokens} T = ₹${(tokens/10).toFixed(2)}`;
+            } else if (currency === 'usd') {
+                result = `${tokens} T = $${(tokens/830).toFixed(2)}`;
+            }
+            document.getElementById('conversion-result').innerText = result;
+        }
+        function submitWithdraw() {
+            const tokens = parseInt(document.getElementById('token-amount').value, 10);
+            const currency = document.getElementById('currency').value;
+            if (!tokens || tokens < 1000) {
+                showToast('Minimum withdrawal is 1000 tokens.', 'warning');
+                return;
+            }
+            let amount = '';
+            if (currency === 'inr') {
+                amount = `₹${(tokens/10).toFixed(2)}`;
+            } else if (currency === 'usd') {
+                amount = `$${(tokens/830).toFixed(2)}`;
+            }
+            showToast(`Withdrawal request for ${tokens} T (${amount}) submitted!`, 'success');
+            closeWithdrawModal();
+        }
+    </script>
+</body>
+</html>

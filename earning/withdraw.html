@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Withdraw Tokens | ExoVerce</title>
+    <link rel="stylesheet" href="earning.css">
+    <link rel="stylesheet" href="../css/global.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+</head>
+<body>
+    <div class="earnings-container fade-in">
+        <div class="earnings-title"><i class="fa-solid fa-coins"></i> Withdraw Tokens</div>
+        <div class="earn-card" style="margin:auto;max-width:400px;">
+            <div class="card-content">
+                <h3>Withdraw Your Tokens</h3>
+                <p>Use your tokens to buy anything or withdraw for real money.<br>
+                <b>10 T = 1 ₹</b> &nbsp; | &nbsp; <b>830 T = 1 $</b><br>
+                <b>Minimum withdrawal:</b> 1,000 T</p>
+                <label for="token-amount">Enter Tokens:</label>
+                <input type="number" id="token-amount" min="1000" placeholder="Minimum 1000 T">
+                <label for="currency">Select Currency:</label>
+                <select id="currency">
+                    <option value="inr">Rupees (₹)</option>
+                    <option value="usd">Dollars ($)</option>
+                </select>
+                <div id="conversion-result" style="margin: 0.5rem 0; color: #333;"></div>
+                <button class="earn-btn" onclick="submitWithdraw()">Exchange & Withdraw</button>
+            </div>
+        </div>
+        <a href="index.html" class="earn-btn" style="margin-top:2rem;">Back to All Earnings</a>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/js/all.min.js"></script>
+    <script>
+        document.addEventListener('input', function(e) {
+            if (e.target && (e.target.id === 'token-amount' || e.target.id === 'currency')) {
+                updateConversion();
+            }
+        });
+        function updateConversion() {
+            const tokens = parseInt(document.getElementById('token-amount').value, 10);
+            const currency = document.getElementById('currency').value;
+            let result = '';
+            if (!tokens || tokens < 1000) {
+                result = 'Enter at least 1000 tokens.';
+            } else if (currency === 'inr') {
+                result = `${tokens} T = ₹${(tokens/10).toFixed(2)}`;
+            } else if (currency === 'usd') {
+                result = `${tokens} T = $${(tokens/830).toFixed(2)}`;
+            }
+            document.getElementById('conversion-result').innerText = result;
+        }
+        function submitWithdraw() {
+            const tokens = parseInt(document.getElementById('token-amount').value, 10);
+            const currency = document.getElementById('currency').value;
+            if (!tokens || tokens < 1000) {
+                showToast('Minimum withdrawal is 1000 tokens.', 'warning');
+                return;
+            }
+            let amount = '';
+            if (currency === 'inr') {
+                amount = `₹${(tokens/10).toFixed(2)}`;
+            } else if (currency === 'usd') {
+                amount = `$${(tokens/830).toFixed(2)}`;
+            }
+            showToast(`Withdrawal request for ${tokens} T (${amount}) submitted!`, 'success');
+        }
+        function showToast(message, type = 'info') {
+            const toast = document.createElement('div');
+            toast.className = `toast-notification toast-${type}`;
+            toast.innerHTML = `<div class='toast-content'><i class='fa-solid fa-info-circle'></i><span>${message}</span></div>`;
+            document.body.appendChild(toast);
+            setTimeout(()=>toast.remove(),2000);
+        }
+    </script>
+</body>
+</html>

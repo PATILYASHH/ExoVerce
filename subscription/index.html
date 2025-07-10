@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Subscriptions | ExoVerce</title>
+    <meta name="description" content="Manage your ExoVerce premium plans and subscription billing.">
+    <link rel="stylesheet" href="subscription.css">
+    <link rel="stylesheet" href="../css/global.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+</head>
+<body>
+    <div class="subscription-container fade-in">
+        <div class="subscription-title">
+            <i class="fa-solid fa-crown"></i> Subscription Plans
+        </div>
+        <div class="subscription-cards">
+            <div class="subscription-card">
+                <div class="card-icon"><i class="fa-solid fa-graduation-cap"></i></div>
+                <div class="card-content">
+                    <h3>Student Plan</h3>
+                    <ul>
+                        <li>AI Tokens: 5K / day</li>
+                        <li>Usage Limit: No extra tokens</li>
+                        <li>Multi-User Collaboration: Up to 2 users</li>
+                        <li>Project Limitations: 1 Lab extra with subscription</li>
+                        <li>Laboratory: Explore, clone, and push code</li>
+                        <li>Storage: Unlimited</li>
+                        <li>Extra Storage: -</li>
+                        <li>Extra Hours: -</li>
+                        <li>Price: <b>Free For Students</b></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="subscription-card">
+                <div class="card-icon"><i class="fa-solid fa-user-group"></i></div>
+                <div class="card-content">
+                    <h3>Pro Plan</h3>
+                    <ul>
+                        <li>AI Tokens: Unlimited</li>
+                        <li>Usage Limit: 50 extra hours/month</li>
+                        <li>Multi-User Collaboration: Up to 3 users</li>
+                        <li>Project Limitations: 5 Labs extra with subscription</li>
+                        <li>Laboratory: Explore, clone, and push code</li>
+                        <li>Storage: Unlimited</li>
+                        <li>Extra Storage: 10 GB with subscription</li>
+                        <li>Extra Hours: 50/month</li>
+                        <li>Price: <b>7,000 RS / Month</b></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="subscription-card">
+                <div class="card-icon"><i class="fa-solid fa-gem"></i></div>
+                <div class="card-content">
+                    <h3>Enterprise Plan</h3>
+                    <ul>
+                        <li>AI Tokens: Unlimited</li>
+                        <li>Usage Limit: 20 extra hours/month</li>
+                        <li>Multi-User Collaboration: Up to 10 users</li>
+                        <li>Project Limitations: Unlimited</li>
+                        <li>Laboratory: Explore, clone, and push code</li>
+                        <li>Storage: Unlimited</li>
+                        <li>Extra Storage: 5 GB with subscription</li>
+                        <li>Extra Hours: 20/month</li>
+                        <li>Price: <b>30,000 RS / Month</b></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/js/all.min.js"></script>
+    <script>
+        function showToast(message, type = 'info') {
+            const toast = document.createElement('div');
+            toast.className = `toast-notification toast-${type}`;
+            toast.innerHTML = `<div class='toast-content'><i class='fa-solid fa-info-circle'></i><span>${message}</span></div>`;
+            document.body.appendChild(toast);
+            setTimeout(()=>toast.remove(),2000);
+        }
+    </script>
+</body>
+</html>
